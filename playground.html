@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Playground</title>
+<meta name="description" content="Build quantum circuits gate by gate and watch superposition and entanglement respond live. Nine puzzles included.">
+<link rel="canonical" href="https://amplitwist.com/playground.html">
+
+<!-- Social preview. These must live in the HTML source: crawlers do not
+     run JavaScript, so site.js cannot supply them. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Amplitwist">
+<meta property="og:title" content="Playground · Amplitwist">
+<meta property="og:description" content="Build quantum circuits gate by gate and watch superposition and entanglement respond live. Nine puzzles, from a first superposition to a GHZ state.">
+<meta property="og:url" content="https://amplitwist.com/playground.html">
+<meta property="og:image" content="https://amplitwist.com/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Playground · Amplitwist">
+<meta name="twitter:description" content="Build quantum circuits gate by gate and watch superposition and entanglement respond live. Nine puzzles, from a first superposition to a GHZ state.">
+<meta name="twitter:image" content="https://amplitwist.com/assets/img/og.png">
+<meta name="theme-color" content="#07080f">
+
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/quantum.css">
+</head>
+<body>
+
+<div data-nav></div>
+
+<main>
+  <section class="hero" style="padding:70px 0 30px">
+    <div class="wrap">
+      <span class="eyebrow">Sandbox</span>
+      <h1>The quantum playground</h1>
+      <p class="lede">
+        Three qubits, a pile of gates, and no way to break anything permanently. Place gates and
+        the state updates instantly — spheres, amplitudes, entanglement, all read live out of a
+        real simulator. Nine puzzles on the right if you want direction.
+      </p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section style="padding:34px 0">
+    <div class="wrap">
+      <div style="display:grid;grid-template-columns:1.55fr 1fr;gap:26px;align-items:start" id="pgGrid">
+
+        <!-- ============ LEFT: the builder ============ -->
+        <div>
+          <div class="lab" style="margin-top:0">
+            <div class="lab-head">
+              <span class="lab-title">Circuit</span>
+              <span style="margin-left:auto" class="mono dim" id="pgDepth">0 gates</span>
+            </div>
+            <div class="lab-body">
+              <div class="circuit" id="pgCircuit"></div>
+
+              <div class="gate-row" style="margin-top:20px">
+                <span class="gate-label">Target qubit</span>
+                <button class="gate g-h" data-q="0">q0</button>
+                <button class="gate" data-q="1">q1</button>
+                <button class="gate" data-q="2">q2</button>
+              </div>
+
+              <div class="gate-row">
+                <span class="gate-label">Single-qubit gates</span>
+                <button class="gate g-h" data-gate="H" title="Hadamard — creates superposition">H</button>
+                <button class="gate" data-gate="X" title="Bit flip (NOT)">X</button>
+                <button class="gate" data-gate="Y" title="Bit and phase flip">Y</button>
+                <button class="gate" data-gate="Z" title="Phase flip">Z</button>
+                <button class="gate" data-gate="S" title="Quarter turn phase">S</button>
+                <button class="gate" data-gate="T" title="Eighth turn phase">T</button>
+              </div>
+
+              <div class="gate-row">
+                <span class="gate-label">Two-qubit gates (control → target)</span>
+                <button class="gate g-cnot" data-cnot="0,1">CNOT 0→1</button>
+                <button class="gate g-cnot" data-cnot="1,2">CNOT 1→2</button>
+                <button class="gate g-cnot" data-cnot="0,2">CNOT 0→2</button>
+                <button class="gate g-cnot" data-cz="0,1">CZ 0–1</button>
+              </div>
+
+              <div class="gate-row">
+                <span class="gate-label">Circuit</span>
+                <button class="gate" data-act="undo">↶ undo</button>
+                <button class="gate" data-act="reset">reset</button>
+                <button class="gate g-measure" data-act="shots">measure ×500</button>
+                <button class="gate" data-act="clearshots">clear shots</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="lab">
+            <div class="lab-head"><span class="lab-title">State</span></div>
+            <div class="lab-body">
+              <canvas id="pgBars" class="bars-canvas" style="height:200px"></canvas>
+              <div class="viz-caption">amplitude of each basis state · colour shows phase</div>
+              <div class="readout" id="pgState" style="margin-top:16px"></div>
+            </div>
+          </div>
+
+          <div class="lab">
+            <div class="lab-head"><span class="lab-title">Measurement results</span></div>
+            <div class="lab-body"><div class="shots" id="pgShots"></div></div>
+          </div>
+        </div>
+
+        <!-- ============ RIGHT: spheres + puzzles ============ -->
+        <div>
+          <div class="lab" style="margin-top:0">
+            <div class="lab-head"><span class="lab-title">Each qubit on its own</span></div>
+            <div class="lab-body">
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+                <div><canvas id="pgB0" class="bloch-canvas" style="--bloch-size:120px"></canvas>
+                     <div class="viz-caption">q0</div></div>
+                <div><canvas id="pgB1" class="bloch-canvas" style="--bloch-size:120px"></canvas>
+                     <div class="viz-caption">q1</div></div>
+                <div><canvas id="pgB2" class="bloch-canvas" style="--bloch-size:120px"></canvas>
+                     <div class="viz-caption">q2</div></div>
+              </div>
+
+              <div class="meter" style="margin-top:16px">
+                <div class="meter-top"><span>q0 entanglement</span><b id="pgE0">none</b></div>
+                <div class="meter-track"><div class="meter-fill ent" id="pgF0"></div></div>
+              </div>
+              <div class="meter">
+                <div class="meter-top"><span>q1 entanglement</span><b id="pgE1">none</b></div>
+                <div class="meter-track"><div class="meter-fill ent" id="pgF1"></div></div>
+              </div>
+              <div class="meter">
+                <div class="meter-top"><span>q2 entanglement</span><b id="pgE2">none</b></div>
+                <div class="meter-track"><div class="meter-fill ent" id="pgF2"></div></div>
+              </div>
+            </div>
+            <div class="lab-foot" style="font-size:0.83rem">
+              A short arrow means that qubit is entangled with the others. A vanished arrow means
+              it has no state of its own at all.
+            </div>
+          </div>
+
+          <div class="lab">
+            <div class="lab-head">
+              <span class="lab-title">Puzzles</span>
+              <span style="margin-left:auto" class="mono dim" id="pgScore">0 / 9</span>
+            </div>
+            <div class="lab-body">
+              <div class="challenge" id="pgChallenge">
+                <span class="challenge-icon" id="pgChIcon">◆</span>
+                <div class="challenge-body">
+                  <h4 id="pgChTitle">Pick a puzzle</h4>
+                  <p id="pgChDesc">Choose one below, or just experiment freely.</p>
+                </div>
+              </div>
+              <div class="puzzle-list" id="pgPuzzles"></div>
+            </div>
+            <div class="lab-foot" style="font-size:0.83rem">
+              Progress is saved in this browser only. <button class="gate" style="padding:3px 9px;font-size:0.72rem" id="pgWipe">reset progress</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="pgToast"></div>
+<div data-footer></div>
+
+<script src="assets/js/qsim.js"></script>
+<script src="assets/js/viz.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/playground.js"></script>
+
+<style>
+#pgGrid > * { min-width: 0; }
+@media (max-width: 960px) {
+  #pgGrid { grid-template-columns: 1fr !important; }
+}
+</style>
+
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home</title>
+<meta name="description" content="Quantum algorithms for industrial problems — chip design, materials discovery, and molecular simulation. Plus an interactive course and a quantum playground.">
+<link rel="canonical" href="https://amplitwist.com/">
+
+<!-- Social preview. These must live in the HTML source: crawlers do not
+     run JavaScript, so site.js cannot supply them. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Amplitwist">
+<meta property="og:title" content="Amplitwist">
+<meta property="og:description" content="Quantum algorithms for problems classical computers find hard — chip placement, materials discovery and molecular simulation, plus a free visual course.">
+<meta property="og:url" content="https://amplitwist.com/">
+<meta property="og:image" content="https://amplitwist.com/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Amplitwist">
+<meta name="twitter:description" content="Quantum algorithms for problems classical computers find hard — chip placement, materials discovery and molecular simulation, plus a free visual course.">
+<meta name="twitter:image" content="https://amplitwist.com/assets/img/og.png">
+<meta name="theme-color" content="#07080f">
+
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/quantum.css">
+</head>
+<body>
+
+<div data-nav></div>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:52px;align-items:center"
+           class="hero-grid">
+        <div>
+          <span class="eyebrow">Quantum algorithms · Applied research</span>
+          <h1>Useful quantum algorithms for<br>problems that resist classical&nbsp;computing.</h1>
+          <p class="lede">
+            We build and study quantum algorithms aimed at concrete industrial bottlenecks —
+            chip floorplanning, materials discovery, and molecular simulation — and we publish
+            what we find, including the negative results.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="algorithms.html">Explore the algorithms →</a>
+            <a class="btn" href="learn.html">Start the course</a>
+          </div>
+        </div>
+
+        <div>
+          <canvas id="heroBloch" class="bloch-canvas" style="--bloch-size:300px"></canvas>
+          <div class="viz-caption" id="heroCaption">|0⟩ &nbsp;·&nbsp; ground state</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ============ WHAT WE DO ============ -->
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">What we work on</span>
+      <h2>Three problem families</h2>
+      <p class="section-sub">
+        Quantum advantage is not general-purpose. It shows up in narrow places with the right
+        structure — optimisation landscapes, and systems that are themselves quantum. These are
+        the three we focus on.
+      </p>
+
+      <div class="grid grid-3">
+        <a class="card card-link" href="algorithms.html#placement">
+          <div class="card-icon">◫</div>
+          <h3>Chip placement &amp; layout</h3>
+          <p>
+            Cell placement is a brutal combinatorial optimisation problem. We map it to QUBO form
+            and study annealing and QAOA-style approaches against strong classical baselines.
+          </p>
+          <div class="tags"><span class="tag tag-accent">QUBO</span><span class="tag">QAOA</span><span class="tag">EDA</span></div>
+        </a>
+
+        <a class="card card-link" href="algorithms.html#materials">
+          <div class="card-icon">◈</div>
+          <h3>Materials discovery</h3>
+          <p>
+            Electronic structure is a natively quantum problem. Variational eigensolvers estimate
+            ground-state energies of lattice and molecular Hamiltonians that scale badly classically.
+          </p>
+          <div class="tags"><span class="tag tag-cyan">VQE</span><span class="tag">Hubbard</span><span class="tag">Ansatz design</span></div>
+        </a>
+
+        <a class="card card-link" href="algorithms.html#drug">
+          <div class="card-icon">⬡</div>
+          <h3>Molecular simulation</h3>
+          <p>
+            Binding affinity and conformational search for drug candidates. Today this means small
+            active-site models and hybrid quantum–classical pipelines, not whole proteins.
+          </p>
+          <div class="tags"><span class="tag tag-cyan">VQE</span><span class="tag">Hybrid</span><span class="tag">Sampling</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LEARN + PLAY ============ -->
+  <section>
+    <div class="wrap">
+      <div class="grid grid-3">
+        <a class="card card-link" href="learn.html" style="padding:30px">
+          <span class="eyebrow">Free · No signup</span>
+          <h3 style="font-size:1.4rem">Quantum computing, visually</h3>
+          <p style="margin-bottom:16px">
+            Seven short lessons covering qubits, superposition, phase, interference, entanglement,
+            measurement, and what a quantum algorithm actually is. Every concept has a live
+            simulation you can drag, not a static diagram.
+          </p>
+          <span class="btn btn-sm">Open the course →</span>
+        </a>
+
+        <a class="card card-link" href="playground.html" style="padding:30px">
+          <span class="eyebrow">Sandbox · Puzzles</span>
+          <h3 style="font-size:1.4rem">The quantum playground</h3>
+          <p style="margin-bottom:16px">
+            Build circuits gate by gate and watch the state respond in real time. Make a Bell pair,
+            break interference, cheat at a coin flip. Nine puzzles, from "make a superposition"
+            to "build a GHZ state".
+          </p>
+          <span class="btn btn-sm">Start playing →</span>
+        </a>
+
+        <a class="card card-link" href="books.html" style="padding:30px">
+          <span class="eyebrow">Reading list</span>
+          <h3 style="font-size:1.4rem">Books worth your time</h3>
+          <p style="margin-bottom:16px">
+            A short, opinionated shelf — sorted by where you actually are, not by title. Each
+            entry says who it is for, so you don't end up in a graduate text on day one and
+            conclude the field isn't for you.
+          </p>
+          <span class="btn btn-sm">See the shelf →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESEARCH STRIP ============ -->
+  <section>
+    <div class="wrap">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:26px">
+        <div>
+          <span class="eyebrow">Publications</span>
+          <h2 class="mb-0">Research</h2>
+        </div>
+        <a class="btn btn-sm" href="research.html">All publications →</a>
+      </div>
+      <div class="grid grid-2" id="homePapers"></div>
+    </div>
+  </section>
+
+  <!-- ============ FOUNDER ============ -->
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">Who is behind this</span>
+      <h2>Founder</h2>
+      <p class="section-sub">
+        A one-person research effort, for now. That is stated plainly rather than hidden behind
+        a corporate "we" — small and honest reads better than big and vague.
+      </p>
+      <div data-founder></div>
+    </div>
+  </section>
+
+  <!-- ============ HONEST NOTE ============ -->
+  <section class="section-tight">
+    <div class="wrap">
+      <div class="card" style="border-color:rgba(242,181,68,0.28);background:rgba(242,181,68,0.05)">
+        <h3 style="color:var(--amber)">Where the field actually is</h3>
+        <p style="margin-bottom:0">
+          Today's quantum hardware is noisy and small. For nearly every industrial problem, a good
+          classical algorithm still wins — and saying otherwise does the field no favours. What is
+          worth doing now is finding which problem structures might eventually invert that, building
+          the mappings, and measuring honestly against the best classical baseline we can find.
+          That is the work here.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div data-footer></div>
+
+<script src="assets/js/qsim.js"></script>
+<script src="assets/js/viz.js"></script>
+<script src="assets/js/papers.js"></script>
+<script src="assets/js/site.js"></script>
+<script>
+/* Hero: a real qubit walked through a short tour of notable states.
+   Every frame is read out of the simulator, not keyframed. */
+(function () {
+  var canvas = document.getElementById('heroBloch');
+  if (!canvas) return;
+
+  /* No trail here. The hero jumps between distant states, and the eased
+     interpolation cuts straight through the sphere's interior — so a trail
+     draws chords across the middle rather than an arc on the surface.
+     Lesson 3 keeps its trail because dragging the phase slider moves the
+     vector continuously along the equator, where the trail is accurate. */
+  var sphere = new Viz.BlochSphere(canvas);
+  var caption = document.getElementById('heroCaption');
+
+  var tour = [
+    { label: '|0⟩  ·  ground state',            build: function (s) {} },
+    { label: 'H|0⟩ = |+⟩  ·  superposition',    build: function (s) { s.apply1(QSim.G.H, 0); } },
+    { label: 'S H|0⟩ = |i⟩  ·  phase applied',  build: function (s) { s.apply1(QSim.G.H, 0); s.apply1(QSim.G.S, 0); } },
+    { label: 'X|0⟩ = |1⟩  ·  excited state',    build: function (s) { s.apply1(QSim.G.X, 0); } },
+    { label: 'RY(2π/3)|0⟩  ·  partial rotation', build: function (s) { s.apply1(QSim.RY(2.094), 0); } },
+    { label: 'H|1⟩ = |−⟩  ·  negative phase',   build: function (s) { s.apply1(QSim.G.X, 0); s.apply1(QSim.G.H, 0); } }
+  ];
+
+  var i = 0;
+  function step() {
+    var stop = tour[i];
+    var s = new QSim.State(1);
+    stop.build(s);
+    sphere.set(s.bloch(0));
+    if (caption) caption.textContent = stop.label;
+    i = (i + 1) % tour.length;
+  }
+  step();
+  setInterval(step, 2900);
+
+  // slow idle rotation, so it reads as 3D before anyone touches it
+  setInterval(function () { if (!sphere._drag) sphere.az += 0.0035; }, 30);
+})();
+
+/* Pull the two most recent papers onto the home page. */
+(function () {
+  var host = document.getElementById('homePapers');
+  if (!host || typeof PAPERS === 'undefined') return;
+  host.innerHTML = PAPERS.slice(0, 2).map(function (p) {
+    return '' +
+      '<a class="card card-link" href="' + p.url + '" target="_blank" rel="noopener">' +
+        '<span class="status status-' + p.statusClass + '">' + p.status + '</span>' +
+        '<h3 style="margin-top:10px">' + p.title + '</h3>' +
+        '<p>' + p.summary + '</p>' +
+        '<div class="tags">' + p.tags.map(function (t) {
+          return '<span class="tag">' + t + '</span>';
+        }).join('') + '</div>' +
+      '</a>';
+  }).join('');
+})();
+</script>
+
+<style>
+.hero-grid > * { min-width: 0; }
+@media (max-width: 880px) {
+  .hero-grid { grid-template-columns: 1fr !important; gap: 34px !important; }
+  .hero { padding: 58px 0 50px; }
+}
+</style>
+
+</body>
+</html>

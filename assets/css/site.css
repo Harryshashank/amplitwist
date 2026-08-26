@@ -1,0 +1,321 @@
+/* ============================================================
+   Core design system.
+   Colors, type scale, and spacing all live here as tokens —
+   change a token, the whole site follows.
+   ============================================================ */
+
+:root {
+  --bg:            #07080f;
+  --bg-raised:     #0d0f1a;
+  --bg-card:       #11142200;
+  --surface:       rgba(255,255,255,0.035);
+  --surface-hover: rgba(255,255,255,0.06);
+  --border:        rgba(255,255,255,0.09);
+  --border-bright: rgba(255,255,255,0.16);
+
+  --text:          #e8eaf3;
+  --text-muted:    #9aa0b8;
+  --text-dim:      #6b7190;
+
+  --accent:        #7c6cff;
+  --accent-bright: #a493ff;
+  --accent-dim:    rgba(124,108,255,0.14);
+  --cyan:          #4fd6e8;
+  --cyan-dim:      rgba(79,214,232,0.13);
+  --amber:         #f2b544;
+  --rose:          #f2648c;
+  --green:         #4ade9a;
+
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", system-ui, sans-serif;
+
+  --maxw: 1140px;
+  --radius: 14px;
+  --radius-sm: 9px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Ambient background glow — pure CSS, no images */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(760px 520px at 12% -8%,  rgba(124,108,255,0.16), transparent 65%),
+    radial-gradient(620px 480px at 92% 4%,   rgba(79,214,232,0.09),  transparent 62%),
+    radial-gradient(900px 700px at 50% 105%, rgba(124,108,255,0.07), transparent 70%);
+}
+
+/* Faint coordinate grid, sits under content */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.021) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.021) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 90% 60% at 50% 30%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 30%, #000 40%, transparent 100%);
+}
+
+main, header, footer { position: relative; z-index: 1; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+.wrap-narrow { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+/* ---------- Typography ---------- */
+
+h1, h2, h3, h4 { line-height: 1.2; letter-spacing: -0.02em; margin: 0 0 0.5em; font-weight: 600; }
+h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); letter-spacing: -0.035em; }
+h2 { font-size: clamp(1.55rem, 3vw, 2.1rem); }
+h3 { font-size: 1.18rem; }
+p  { margin: 0 0 1.1em; color: var(--text-muted); }
+a  { color: var(--accent-bright); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.12em 0.42em;
+  border-radius: 5px;
+  color: var(--cyan);
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.73rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+  margin-bottom: 14px;
+  display: block;
+}
+.lede { font-size: 1.12rem; color: var(--text-muted); max-width: 68ch; }
+.section-sub { color: var(--text-muted); max-width: 66ch; margin-bottom: 2.4rem; }
+
+/* ---------- Nav ---------- */
+
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  background: rgba(7,8,15,0.8);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: var(--maxw); margin: 0 auto; padding: 0 24px;
+  height: 62px; display: flex; align-items: center; gap: 30px;
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 600; color: var(--text); font-size: 0.97rem;
+  letter-spacing: -0.015em; text-decoration: none; flex-shrink: 0;
+}
+.brand:hover { text-decoration: none; }
+.brand-mark { width: 25px; height: 25px; flex-shrink: 0; }
+.nav-links { display: flex; gap: 4px; margin-left: auto; align-items: center; }
+.nav-links a {
+  color: var(--text-muted); font-size: 0.885rem; padding: 7px 13px;
+  border-radius: 7px; transition: color .15s, background .15s;
+}
+.nav-links a:hover { color: var(--text); background: var(--surface); text-decoration: none; }
+.nav-links a.active { color: var(--text); background: var(--accent-dim); }
+
+.nav-toggle {
+  display: none; margin-left: auto; background: none; border: 1px solid var(--border);
+  color: var(--text); border-radius: 8px; padding: 6px 10px; cursor: pointer; font-size: 1rem;
+}
+
+@media (max-width: 800px) {
+  .nav-toggle { display: block; }
+  .nav-links {
+    display: none; position: absolute; top: 62px; left: 0; right: 0;
+    flex-direction: column; gap: 2px; padding: 12px 18px 18px;
+    background: rgba(9,10,20,0.98); border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 11px 13px; }
+}
+
+/* ---------- Layout blocks ---------- */
+
+.hero { padding: 96px 0 78px; }
+section { padding: 62px 0; }
+.section-tight { padding: 40px 0; }
+hr.rule { border: 0; border-top: 1px solid var(--border); margin: 0; }
+
+/* Grid and flex children default to min-width:auto, meaning they refuse to
+   shrink below their own content. That silently defeats every inner
+   overflow-x:auto scroller (circuit diagram, code readouts) and pushes the
+   whole page sideways on narrow screens. Opting out is the fix. */
+.grid > *, .lab-split > *, .footer-inner > * { min-width: 0; }
+
+.grid { display: grid; gap: 18px; }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(268px, 1fr)); }
+
+/* ---------- Cards ---------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: border-color .18s, background .18s, transform .18s;
+}
+.card:hover { border-color: var(--border-bright); background: var(--surface-hover); }
+.card h3 { margin-bottom: 8px; }
+.card p  { font-size: 0.925rem; margin-bottom: 0; }
+.card-link { display: block; color: inherit; }
+.card-link:hover { text-decoration: none; transform: translateY(-2px); }
+
+.card-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--accent-dim); border: 1px solid rgba(124,108,255,0.28);
+  display: grid; place-items: center; margin-bottom: 15px;
+  font-size: 1.05rem;
+}
+
+/* ---------- Tags / badges ---------- */
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.tag {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em;
+  padding: 3px 9px; border-radius: 20px;
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text-dim);
+}
+.tag-accent { background: var(--accent-dim); border-color: rgba(124,108,255,0.3); color: var(--accent-bright); }
+.tag-cyan   { background: var(--cyan-dim);  border-color: rgba(79,214,232,0.3);  color: var(--cyan); }
+
+.status {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em;
+  color: var(--text-dim); text-transform: uppercase;
+}
+.status::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--amber); box-shadow: 0 0 9px currentColor;
+}
+.status-live::before   { background: var(--green); }
+.status-research::before { background: var(--cyan); }
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 21px; border-radius: 9px;
+  font-size: 0.9rem; font-weight: 500; cursor: pointer;
+  border: 1px solid var(--border-bright);
+  background: var(--surface); color: var(--text);
+  transition: background .15s, border-color .15s, transform .1s;
+  font-family: inherit;
+}
+.btn:hover { background: var(--surface-hover); border-color: var(--accent); text-decoration: none; }
+.btn:active { transform: translateY(1px); }
+.btn-primary {
+  background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 550;
+}
+.btn-primary:hover { background: var(--accent-bright); border-color: var(--accent-bright); }
+.btn-sm { padding: 7px 14px; font-size: 0.83rem; }
+.btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+
+/* ---------- Footer ---------- */
+
+footer {
+  border-top: 1px solid var(--border);
+  margin-top: 70px; padding: 44px 0 34px;
+  color: var(--text-dim); font-size: 0.87rem;
+}
+.footer-inner { display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between; }
+.footer-links { display: flex; gap: 22px; flex-wrap: wrap; }
+.footer-links a { color: var(--text-muted); }
+.footer-note { margin-top: 26px; font-size: 0.8rem; color: var(--text-dim); max-width: 62ch; }
+
+/* ---------- Utility ---------- */
+
+.mono { font-family: var(--mono); }
+.muted { color: var(--text-muted); }
+.dim { color: var(--text-dim); }
+.center { text-align: center; }
+.mt-0 { margin-top: 0; } .mb-0 { margin-bottom: 0; }
+
+/* ---------- Founder card ---------- */
+
+.founder {
+  display: grid;
+  grid-template-columns: 168px 1fr;
+  gap: 30px;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 30px;
+}
+.founder > * { min-width: 0; }
+
+.founder-photo {
+  position: relative;
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--border-bright);
+  background: linear-gradient(145deg, rgba(124,108,255,0.22), rgba(79,214,232,0.12));
+  display: grid;
+  place-items: center;
+}
+.founder-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+/* The monogram sits underneath and only becomes visible when the
+   <img> removes itself on error — so a missing headshot degrades to
+   initials rather than a broken-image icon. */
+.founder-monogram {
+  position: absolute;
+  font-family: var(--mono);
+  font-size: 2.6rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--accent-bright);
+  z-index: 0;
+}
+.founder-photo.is-fallback { border-style: dashed; }
+
+.founder-name { font-size: 1.55rem; margin-bottom: 10px; }
+.founder-body p { font-size: 0.97rem; margin-bottom: 0; }
+.founder-links { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 20px; }
+
+@media (max-width: 620px) {
+  .founder { grid-template-columns: 1fr; gap: 22px; text-align: center; padding: 26px; }
+  .founder-photo { margin: 0 auto; width: 132px; height: 132px; }
+  .founder-monogram { font-size: 2.1rem; }
+  .founder-links { justify-content: center; }
+}

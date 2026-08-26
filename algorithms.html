@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Algorithms</title>
+<meta name="description" content="Quantum algorithms with industrial applications: cell placement, materials discovery, molecular simulation, search and sampling.">
+<link rel="canonical" href="https://amplitwist.com/algorithms.html">
+
+<!-- Social preview. These must live in the HTML source: crawlers do not
+     run JavaScript, so site.js cannot supply them. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Amplitwist">
+<meta property="og:title" content="Algorithms · Amplitwist">
+<meta property="og:description" content="Quantum algorithms with industrial applications: cell placement, materials discovery, molecular simulation, search and sampling — with an honest read on where each really stands.">
+<meta property="og:url" content="https://amplitwist.com/algorithms.html">
+<meta property="og:image" content="https://amplitwist.com/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Algorithms · Amplitwist">
+<meta name="twitter:description" content="Quantum algorithms with industrial applications: cell placement, materials discovery, molecular simulation, search and sampling — with an honest read on where each really stands.">
+<meta name="twitter:image" content="https://amplitwist.com/assets/img/og.png">
+<meta name="theme-color" content="#07080f">
+
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/quantum.css">
+</head>
+<body>
+
+<div data-nav></div>
+
+<main>
+  <section class="hero" style="padding:74px 0 44px">
+    <div class="wrap">
+      <span class="eyebrow">Algorithm portfolio</span>
+      <h1>Algorithms, and what they are<br>actually good for.</h1>
+      <p class="lede">
+        Each entry states the problem, the quantum approach, the honest status today, and what
+        would have to change for it to beat the classical alternative. Status badges are
+        deliberate: <span class="status status-live">deployed</span> means it runs on real
+        problems, <span class="status status-research">research</span> means it works in
+        simulation, <span class="status">exploratory</span> means we are still mapping it out.
+      </p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <div class="wrap">
+      <div class="grid" style="gap:22px" id="algoList"></div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="wrap">
+      <div class="card">
+        <span class="eyebrow">Method</span>
+        <h3>How we evaluate a candidate</h3>
+        <p>
+          A quantum approach earns a place here only after we have tried hard to beat it classically.
+          The sequence is: formulate the problem, find the strongest classical baseline in the
+          literature, implement the quantum mapping, simulate it noiselessly, then add a realistic
+          noise model. Most candidates die at step four, and that result gets written up too.
+        </p>
+        <p class="mb-0">
+          If you have a problem you think has the right structure —
+          combinatorial with a rugged landscape, or natively quantum —
+          <a data-site-email href="#">get in touch</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+
+<script src="assets/js/site.js"></script>
+<script>
+/* Edit this array to add or change an algorithm entry. */
+var ALGORITHMS = [
+  {
+    id: 'placement',
+    icon: '◫',
+    name: 'Quantum-assisted cell placement',
+    family: 'Combinatorial optimisation',
+    status: 'Research',
+    statusClass: 'research',
+    problem:
+      'In chip physical design, hundreds of thousands of standard cells must be positioned to ' +
+      'minimise wirelength, timing violations and routing congestion. The search space is ' +
+      'factorial and the objective is non-convex — placement is one of the most expensive ' +
+      'steps in the entire EDA flow.',
+    approach:
+      'Encode placement as a QUBO: binary variables for cell-to-site assignment, penalty terms ' +
+      'for overlap and out-of-bounds, and a quadratic wirelength objective. The QUBO is then ' +
+      'attacked with quantum annealing or a QAOA-style variational circuit. Because full-chip ' +
+      'instances are far beyond current qubit counts, the practical route is partitioning: ' +
+      'solve small dense sub-regions quantum-side, keep global placement classical.',
+    reality:
+      'Classical analytical placers are extremely good and decades-tuned. The realistic near-term ' +
+      'target is not beating them outright but improving specific hard sub-blocks — macro ' +
+      'placement, congested regions — inside an otherwise classical flow.',
+    tags: ['QUBO', 'QAOA', 'Annealing', 'VLSI', 'EDA']
+  },
+  {
+    id: 'materials',
+    icon: '◈',
+    name: 'Variational quantum eigensolver (VQE)',
+    family: 'Quantum simulation',
+    status: 'Research',
+    statusClass: 'research',
+    problem:
+      'Predicting whether a material is a superconductor, a good battery cathode, or a useful ' +
+      'catalyst comes down to its electronic structure. Exact solution of the many-electron ' +
+      'Schrödinger equation costs exponential time classically, so every practical method ' +
+      'approximates — and the approximations fail exactly where strong correlation matters most.',
+    approach:
+      'VQE prepares a parameterised trial state on quantum hardware, measures the expectation ' +
+      'value of the Hamiltonian, and hands the number to a classical optimiser that adjusts the ' +
+      'parameters. The variational principle guarantees the result is an upper bound on the true ' +
+      'ground-state energy. Hardware only ever does state preparation and measurement, which is ' +
+      'why VQE is viable on noisy devices at all.',
+    reality:
+      'This is the flagship near-term application and also the most over-promised one. Barren ' +
+      'plateaus make deep ansätze untrainable, and measurement counts scale badly. Small lattice ' +
+      'models and few-orbital active spaces are where genuine work is happening.',
+    tags: ['VQE', 'Hamiltonian', 'Ansatz', 'Materials', 'Chemistry']
+  },
+  {
+    id: 'drug',
+    icon: '⬡',
+    name: 'Hybrid molecular screening',
+    family: 'Quantum simulation + sampling',
+    status: 'Exploratory',
+    statusClass: '',
+    problem:
+      'Early-stage drug discovery screens enormous candidate libraries for binding affinity. ' +
+      'The expensive, error-prone part is the quantum-mechanical behaviour at the binding site — ' +
+      'charge transfer, polarisation, and bond-making that force fields approximate crudely.',
+    approach:
+      'Keep the pipeline mostly classical — docking, conformational search, molecular dynamics — ' +
+      'and reserve a quantum subroutine for a small active-site region treated at the electronic ' +
+      'structure level, embedded in a classical environment. This is a QM/MM idea with the QM ' +
+      'part run variationally.',
+    reality:
+      'Nothing here beats a well-tuned classical pipeline today, and any claim that quantum ' +
+      'computers are currently designing drugs should be treated with suspicion. The value now ' +
+      'is building the embedding machinery so it is ready when the hardware is.',
+    tags: ['QM/MM', 'VQE', 'Binding affinity', 'Screening']
+  },
+  {
+    id: 'grover',
+    icon: '⌕',
+    name: "Grover-style amplitude amplification",
+    family: 'Search',
+    status: 'Textbook',
+    statusClass: 'live',
+    problem:
+      'Finding a satisfying entry in an unstructured space of N candidates takes O(N) classical ' +
+      'queries. Constraint-satisfaction checks inside verification, scheduling and design-rule ' +
+      'checking all have this shape.',
+    approach:
+      'Prepare a uniform superposition over all candidates, then repeatedly apply an oracle that ' +
+      'flips the phase of solutions followed by an inversion about the mean. Each iteration ' +
+      'rotates amplitude toward the solutions, so about √N iterations suffice — a provable ' +
+      'quadratic speedup, one of the few we can actually prove.',
+    reality:
+      'Quadratic, not exponential. Once you account for error correction overhead, the crossover ' +
+      'point where Grover beats a classical machine on real problems is far out. It remains the ' +
+      'clearest teaching example of how interference does useful work.',
+    tags: ['Grover', 'Amplitude amplification', 'Oracle', 'Search']
+  },
+  {
+    id: 'annealing',
+    icon: '≈',
+    name: 'Quantum annealing for scheduling',
+    family: 'Combinatorial optimisation',
+    status: 'Exploratory',
+    statusClass: '',
+    problem:
+      'Production scheduling, vehicle routing, and resource allocation are NP-hard and appear ' +
+      'everywhere in industry. Small percentage improvements translate to real money.',
+    approach:
+      'Express the objective and constraints as an Ising or QUBO energy landscape, initialise in ' +
+      'the ground state of a simple transverse-field Hamiltonian, and interpolate slowly toward ' +
+      'the problem Hamiltonian. If the evolution is slow relative to the minimum spectral gap, ' +
+      'the system tracks the ground state and you read off a solution.',
+    reality:
+      'The catch is in that "if" — the gap can close exponentially, and simulated annealing or ' +
+      'specialised solvers frequently match or beat annealers on published benchmarks. Worth ' +
+      'studying, worth being sceptical about.',
+    tags: ['Ising', 'QUBO', 'Annealing', 'Scheduling']
+  },
+  {
+    id: 'qml',
+    icon: '◐',
+    name: 'Quantum kernel methods',
+    family: 'Machine learning',
+    status: 'Exploratory',
+    statusClass: '',
+    problem:
+      'Some classification problems have structure that classical kernels represent awkwardly, ' +
+      'needing very high-dimensional feature maps to separate cleanly.',
+    approach:
+      'Encode each data point into a quantum state via a feature-map circuit, then estimate ' +
+      'kernel entries as overlaps between those states. The classical SVM machinery is unchanged; ' +
+      'only the kernel evaluation moves to quantum hardware.',
+    reality:
+      'A quantum kernel is only interesting if it is both hard to compute classically and ' +
+      'actually well-matched to the data. Most demonstrated speedups are on constructed datasets. ' +
+      'Treat published quantum-ML advantage claims carefully.',
+    tags: ['Kernel methods', 'Feature maps', 'SVM', 'QML']
+  }
+];
+
+(function () {
+  var host = document.getElementById('algoList');
+  host.innerHTML = ALGORITHMS.map(function (a) {
+    return '' +
+    '<article class="card" id="' + a.id + '" style="padding:30px">' +
+      '<div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">' +
+        '<div class="card-icon" style="margin:0;width:44px;height:44px;font-size:1.2rem;flex-shrink:0">' + a.icon + '</div>' +
+        '<div style="flex:1;min-width:230px">' +
+          '<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:3px">' +
+            '<span class="status status-' + a.statusClass + '">' + a.status + '</span>' +
+            '<span class="mono dim" style="font-size:0.74rem">' + a.family + '</span>' +
+          '</div>' +
+          '<h3 style="font-size:1.32rem;margin-bottom:14px">' + a.name + '</h3>' +
+
+          '<h4 class="mono" style="font-size:0.73rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);margin:0 0 5px">The problem</h4>' +
+          '<p>' + a.problem + '</p>' +
+
+          '<h4 class="mono" style="font-size:0.73rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);margin:18px 0 5px">The quantum approach</h4>' +
+          '<p>' + a.approach + '</p>' +
+
+          '<h4 class="mono" style="font-size:0.73rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin:18px 0 5px">Where it really stands</h4>' +
+          '<p style="margin-bottom:0">' + a.reality + '</p>' +
+
+          '<div class="tags">' + a.tags.map(function (t) {
+            return '<span class="tag">' + t + '</span>';
+          }).join('') + '</div>' +
+        '</div>' +
+      '</div>' +
+    '</article>';
+  }).join('');
+
+  // deep links like algorithms.html#materials
+  if (location.hash) {
+    var el = document.querySelector(location.hash);
+    if (el) setTimeout(function () { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 90);
+  }
+})();
+</script>
+
+</body>
+</html>

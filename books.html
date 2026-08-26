@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Books</title>
+<meta name="description" content="A curated quantum computing reading list — where to start, what to read next, and which books are worth owning.">
+<link rel="canonical" href="https://amplitwist.com/books.html">
+
+<!-- Social preview. These must live in the HTML source: crawlers do not
+     run JavaScript, so site.js cannot supply them. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Amplitwist">
+<meta property="og:title" content="Books · Amplitwist">
+<meta property="og:description" content="A curated quantum computing reading list, sorted by where you actually are rather than by title.">
+<meta property="og:url" content="https://amplitwist.com/books.html">
+<meta property="og:image" content="https://amplitwist.com/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Books · Amplitwist">
+<meta name="twitter:description" content="A curated quantum computing reading list, sorted by where you actually are rather than by title.">
+<meta name="twitter:image" content="https://amplitwist.com/assets/img/og.png">
+<meta name="theme-color" content="#07080f">
+
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/quantum.css">
+</head>
+<body>
+
+<div data-nav></div>
+
+<main>
+  <section class="hero" style="padding:74px 0 40px">
+    <div class="wrap">
+      <span class="eyebrow">Reading list</span>
+      <h1>Books</h1>
+      <p class="lede">
+        The books worth your time, sorted by where you are rather than by title. Each one has a
+        note on <em>who it is actually for</em> — most quantum reading lists fail by sending
+        beginners to graduate texts and then wondering why they quit.
+      </p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <div class="wrap">
+      <div id="authoredSection"></div>
+
+      <div id="levelFilters" class="tags" style="margin-bottom:26px"></div>
+      <div class="grid grid-2" id="bookList" style="gap:16px"></div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="wrap">
+      <div class="grid grid-2">
+        <div class="card">
+          <span class="eyebrow">If you only read one</span>
+          <h3>Start with the O'Reilly one</h3>
+          <p class="mb-0">
+            <em>Programming Quantum Computers</em> if you write software,
+            <em>Quantum Computing for Computer Scientists</em> if the linear algebra is the
+            sticking point. Both get you to real circuits fast. Save Nielsen &amp; Chuang for
+            when you have a specific question to look up — it is a reference, not a first read.
+          </p>
+        </div>
+        <div class="card">
+          <span class="eyebrow">Before you buy anything</span>
+          <h3>Try the course first</h3>
+          <p class="mb-0">
+            The <a href="learn.html">seven lessons here</a> cover the same core concepts as the
+            first three chapters of most of these books, with simulations you can actually push
+            around. Work through those and you will know which book you want.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+
+<script src="assets/js/books.js"></script>
+<script src="assets/js/site.js"></script>
+<script>
+(function () {
+  var list = el('bookList'), filters = el('levelFilters'), authoredHost = el('authoredSection');
+  var activeLevel = null;
+
+  function el(id) { return document.getElementById(id); }
+
+  /* No hardcoded product URLs. When a book has no url we build a Google Books
+     search for its exact title and author, which always resolves and never
+     points at a page that may not exist. */
+  function linkFor(b) {
+    if (b.url) return b.url;
+    return 'https://www.google.com/search?tbm=bks&q=' +
+           encodeURIComponent('"' + b.title + '" ' + b.authors);
+  }
+
+  function card(b) {
+    return '' +
+      '<a class="card card-link" href="' + linkFor(b) + '" target="_blank" rel="noopener">' +
+        '<div style="display:flex;justify-content:space-between;gap:14px;align-items:baseline;flex-wrap:wrap">' +
+          '<span class="tag tag-accent">' + b.level + '</span>' +
+          '<span class="mono dim" style="font-size:0.78rem">' + b.year + '</span>' +
+        '</div>' +
+        '<h3 style="margin:12px 0 6px;font-size:1.1rem;line-height:1.35">' + b.title +
+          ' <span style="color:var(--accent-bright);font-size:0.8em">↗</span></h3>' +
+        '<div class="mono dim" style="font-size:0.79rem;margin-bottom:12px">' +
+          b.authors + ' · <em>' + b.publisher + '</em></div>' +
+        '<p style="font-size:0.92rem">' + b.note + '</p>' +
+        '<div class="tags">' + b.tags.map(function (t) {
+          return '<span class="tag">' + t + '</span>';
+        }).join('') + '</div>' +
+      '</a>';
+  }
+
+  /* Books you wrote get their own section above the fold. Hidden entirely
+     while there are none, so the page never shows an empty shelf. */
+  var authored = BOOKS.filter(function (b) { return b.shelf === 'authored'; });
+  if (authored.length) {
+    authoredHost.innerHTML =
+      '<span class="eyebrow">Written by us</span>' +
+      '<h2>Our books</h2>' +
+      '<div class="grid grid-2" style="gap:16px;margin-bottom:52px">' +
+        authored.map(card).join('') +
+      '</div>' +
+      '<hr class="rule" style="margin-bottom:40px">' +
+      '<span class="eyebrow">Recommended</span>' +
+      '<h2>What we point people at</h2>';
+  }
+
+  var recommended = BOOKS.filter(function (b) { return b.shelf !== 'authored'; });
+
+  var LEVEL_ORDER = ['Start here', 'Core', 'Deeper', 'Reference', 'Context'];
+  var levels = LEVEL_ORDER.filter(function (L) {
+    return recommended.some(function (b) { return b.level === L; });
+  });
+
+  function renderFilters() {
+    filters.innerHTML =
+      '<button class="tag' + (activeLevel === null ? ' tag-accent' : '') +
+        '" data-level="" style="cursor:pointer;font-family:var(--mono)">All (' + recommended.length + ')</button>' +
+      levels.map(function (L) {
+        var n = recommended.filter(function (b) { return b.level === L; }).length;
+        return '<button class="tag' + (activeLevel === L ? ' tag-accent' : '') +
+               '" data-level="' + L + '" style="cursor:pointer;font-family:var(--mono)">' +
+               L + ' (' + n + ')</button>';
+      }).join('');
+
+    filters.querySelectorAll('button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        activeLevel = b.dataset.level || null;
+        renderFilters();
+        renderList();
+      });
+    });
+  }
+
+  function renderList() {
+    var shown = activeLevel
+      ? recommended.filter(function (b) { return b.level === activeLevel; })
+      : recommended;
+    // keep a sensible reading order rather than array order
+    shown = shown.slice().sort(function (a, b) {
+      return LEVEL_ORDER.indexOf(a.level) - LEVEL_ORDER.indexOf(b.level);
+    });
+    list.innerHTML = shown.map(card).join('');
+  }
+
+  renderFilters();
+  renderList();
+})();
+</script>
+
+</body>
+</html>

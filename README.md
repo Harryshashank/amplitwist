@@ -3,11 +3,21 @@
 A static site. No build step, no dependencies, no npm. Every page is plain
 HTML/CSS/JS, so you can edit a file and hit refresh.
 
+## What "Amplitwist" means
+
+An *amplitwist* is Tristan Needham's term, coined in *Visual Complex Analysis*
+(1997), for what a complex derivative does geometrically: it **ampli**fies a
+vector and **twist**s it. That is exactly what a quantum amplitude is — a
+magnitude and a phase — so every unitary gate in the simulator here is an
+amplitwist.
+
+The logo is a logarithmic spiral, `r = r₀·e^(bθ)`, a curve that grows and
+rotates at once. The mark is the definition of the name.
+
 ## Registering the name
 
-See [REGISTRATION.md](REGISTRATION.md) for the full checklist — domains,
-handles, trademark and entity, in the order worth doing them. The only urgent
-item is registering `amplitwist.com` and `amplitwist.ai`.
+`amplitwist.com` is registered and serves this site through GitHub Pages via
+the `CNAME` file in this directory.
 
 ## Run it locally
 
@@ -61,10 +71,8 @@ Book entries have no hardcoded product URLs. When `url` is empty the card links
 to a Google Books search for that exact title and author, which always resolves.
 Set `url` to override with a publisher page or your own affiliate link.
 
-The company name appears in exactly one place (`SITE.name`). Change it there and
-the whole site follows — see [NAMING.md](NAMING.md) for how the name was chosen
-and what still needs doing (register the domains; get a trademark clearance
-search before you file or raise).
+The name appears in exactly one place (`SITE.name`). Change it there and the
+whole site follows.
 
 ## The simulator
 

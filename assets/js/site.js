@@ -9,7 +9,7 @@
 var SITE = {
   name:    'Amplitwist',
   short:   'Amplitwist',
-  tagline: 'Quantum algorithms for problems classical computers find hard.',
+  tagline: 'Learning quantum algorithms in public — simulations, explainers and notes.',
   // Deliberately a placeholder — put whatever address you actually want
   // published here. Anything with [data-site-email] picks it up.
   email:   'shashank.gupta2@case.edu',
@@ -40,14 +40,11 @@ var FOUNDER = {
   name:  'Shashank Gupta',
   role:  'Founder',   // kept short: the eyebrow is uppercase mono and wraps badly
   photo: 'assets/img/founder.jpg',
-  bio:   'I am a PhD candidate in condensed matter physics at Case Western Reserve ' +
-         'University, working with Dr. Ruihao Li on variational quantum algorithms and ' +
-         'tensor-network methods. My current research asks what actually makes a quantum ' +
-         'state hard to prepare — specifically how non-stabilizerness ("magic") and ' +
-         'entanglement trade off against the trainability of a variational ansatz. Before ' +
-         'that I simulated quantum skyrmion lattices using matrix product states, and my ' +
-         'first-author work on electron–magnon cross diffusion appeared in Physical Review B. ' +
-         'Masters in physics from IIT Madras; undergraduate at the University of Delhi.',
+  bio:   'PhD candidate in condensed matter physics at Case Western Reserve ' +
+         'University, working on variational quantum algorithms, tensor networks ' +
+         'and many-body simulation — mostly VQE, QITE and QAOA in Qiskit and ' +
+         'PennyLane, and matrix product states in ITensors. Amplitwist is where I ' +
+         'write it up for people who do not already speak the language.',
   links: [
     { label: 'GitHub',   url: 'https://github.com/Harryshashank' },
     { label: 'LinkedIn', url: 'https://www.linkedin.com/in/shashank-gupta-1282241a4/' },

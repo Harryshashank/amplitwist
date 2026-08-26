@@ -124,14 +124,14 @@
   var authored = BOOKS.filter(function (b) { return b.shelf === 'authored'; });
   if (authored.length) {
     authoredHost.innerHTML =
-      '<span class="eyebrow">Written by us</span>' +
-      '<h2>Our books</h2>' +
+      '<span class="eyebrow">Written by me</span>' +
+      '<h2>My books</h2>' +
       '<div class="grid grid-2" style="gap:16px;margin-bottom:52px">' +
         authored.map(card).join('') +
       '</div>' +
       '<hr class="rule" style="margin-bottom:40px">' +
       '<span class="eyebrow">Recommended</span>' +
-      '<h2>What we point people at</h2>';
+      '<h2>Recommended reading</h2>';
   }
 
   var recommended = BOOKS.filter(function (b) { return b.shelf !== 'authored'; });

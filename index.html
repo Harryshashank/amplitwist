@@ -12,14 +12,14 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Amplitwist">
 <meta property="og:title" content="Amplitwist">
-<meta property="og:description" content="Quantum algorithms for problems classical computers find hard — chip placement, materials discovery and molecular simulation, plus a free visual course.">
+<meta property="og:description" content="Learn quantum computing through simulations you can actually push around — a free seven-lesson course, a circuit playground, algorithm explainers and a curated reading list.">
 <meta property="og:url" content="https://amplitwist.com/">
 <meta property="og:image" content="https://amplitwist.com/assets/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Amplitwist">
-<meta name="twitter:description" content="Quantum algorithms for problems classical computers find hard — chip placement, materials discovery and molecular simulation, plus a free visual course.">
+<meta name="twitter:description" content="Learn quantum computing through simulations you can actually push around — a free seven-lesson course, a circuit playground, algorithm explainers and a curated reading list.">
 <meta name="twitter:image" content="https://amplitwist.com/assets/img/og.png">
 <meta name="theme-color" content="#07080f">
 
@@ -38,12 +38,12 @@
       <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:52px;align-items:center"
            class="hero-grid">
         <div>
-          <span class="eyebrow">Quantum algorithms · Applied research</span>
-          <h1>Useful quantum algorithms for<br>problems that resist classical&nbsp;computing.</h1>
+          <span class="eyebrow">Quantum algorithms · Learning in public</span>
+          <h1>Quantum algorithms,<br>explained properly.</h1>
           <p class="lede">
-            We build and study quantum algorithms aimed at concrete industrial bottlenecks —
-            chip floorplanning, materials discovery, and molecular simulation — and we publish
-            what we find, including the negative results.
+            A place to learn quantum algorithms properly — interactive simulations you can push
+            around, plain-language explanations, and honest notes on where quantum computing might
+            eventually matter versus where the claims currently outrun the evidence.
           </p>
           <div class="btn-row">
             <a class="btn btn-primary" href="algorithms.html">Explore the algorithms →</a>
@@ -64,23 +64,26 @@
   <!-- ============ WHAT WE DO ============ -->
   <section>
     <div class="wrap">
-      <span class="eyebrow">What we work on</span>
-      <h2>Three problem families</h2>
+      <span class="eyebrow">Areas of interest</span>
+      <h2>Three problem families worth watching</h2>
       <p class="section-sub">
         Quantum advantage is not general-purpose. It shows up in narrow places with the right
-        structure — optimisation landscapes, and systems that are themselves quantum. These are
-        the three we focus on.
+        structure — rugged optimisation landscapes, and systems that are themselves quantum.
+        These three are where I think the case is strongest, and they are what I am reading
+        toward. To be clear: this is where my interest points, not a description of work I am
+        currently doing.
       </p>
 
       <div class="grid grid-3">
-        <a class="card card-link" href="algorithms.html#placement">
-          <div class="card-icon">◫</div>
-          <h3>Chip placement &amp; layout</h3>
+        <a class="card card-link" href="algorithms.html#annealing">
+          <div class="card-icon">≈</div>
+          <h3>Combinatorial optimisation</h3>
           <p>
-            Cell placement is a brutal combinatorial optimisation problem. We map it to QUBO form
-            and study annealing and QAOA-style approaches against strong classical baselines.
+            Scheduling, routing and resource allocation are NP-hard and turn up everywhere in
+            industry. Ising and QUBO encodings turn them into something a quantum device can
+            attack — though the classical solvers they would have to beat are very good.
           </p>
-          <div class="tags"><span class="tag tag-accent">QUBO</span><span class="tag">QAOA</span><span class="tag">EDA</span></div>
+          <div class="tags"><span class="tag tag-accent">QUBO</span><span class="tag">Ising</span><span class="tag">Annealing</span></div>
         </a>
 
         <a class="card card-link" href="algorithms.html#materials">
@@ -151,10 +154,10 @@
     <div class="wrap">
       <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:26px">
         <div>
-          <span class="eyebrow">Publications</span>
-          <h2 class="mb-0">Research</h2>
+          <span class="eyebrow">Reading list</span>
+          <h2 class="mb-0">Key papers</h2>
         </div>
-        <a class="btn btn-sm" href="research.html">All publications →</a>
+        <a class="btn btn-sm" href="research.html">All papers →</a>
       </div>
       <div class="grid grid-2" id="homePapers"></div>
     </div>
@@ -166,8 +169,8 @@
       <span class="eyebrow">Who is behind this</span>
       <h2>Founder</h2>
       <p class="section-sub">
-        A one-person research effort, for now. That is stated plainly rather than hidden behind
-        a corporate "we" — small and honest reads better than big and vague.
+        Amplitwist is one person learning in public, not a company. Saying so plainly seems
+        better than hiding behind a corporate "we".
       </p>
       <div data-founder></div>
     </div>
@@ -182,8 +185,8 @@
           Today's quantum hardware is noisy and small. For nearly every industrial problem, a good
           classical algorithm still wins — and saying otherwise does the field no favours. What is
           worth doing now is finding which problem structures might eventually invert that, building
-          the mappings, and measuring honestly against the best classical baseline we can find.
-          That is the work here.
+          the mappings, and measuring honestly against the best classical baseline available.
+          Anything on this site that sounds more confident than that is a mistake — tell me.
         </p>
       </div>
     </div>
@@ -237,19 +240,18 @@
   setInterval(function () { if (!sphere._drag) sphere.az += 0.0035; }, 30);
 })();
 
-/* Pull the two most recent papers onto the home page. */
+/* Two papers from the reading list on the home page. */
 (function () {
   var host = document.getElementById('homePapers');
   if (!host || typeof PAPERS === 'undefined') return;
   host.innerHTML = PAPERS.slice(0, 2).map(function (p) {
     return '' +
-      '<a class="card card-link" href="' + p.url + '" target="_blank" rel="noopener">' +
-        '<span class="status status-' + p.statusClass + '">' + p.status + '</span>' +
-        '<h3 style="margin-top:10px">' + p.title + '</h3>' +
-        '<p>' + p.summary + '</p>' +
-        '<div class="tags">' + p.tags.map(function (t) {
-          return '<span class="tag">' + t + '</span>';
-        }).join('') + '</div>' +
+      '<a class="card card-link" href="https://arxiv.org/abs/' + p.arxiv + '" target="_blank" rel="noopener">' +
+        '<span class="tag tag-cyan">' + p.topic + '</span>' +
+        '<h3 style="margin-top:11px;font-size:1.06rem;line-height:1.38">' + p.title + '</h3>' +
+        '<div class="mono dim" style="font-size:0.78rem;margin-bottom:10px">' +
+          p.authors + ' · ' + p.year + '</div>' +
+        '<p style="font-size:0.92rem">' + p.note + '</p>' +
       '</a>';
   }).join('');
 })();

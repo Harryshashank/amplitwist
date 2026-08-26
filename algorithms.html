@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Algorithms</title>
-<meta name="description" content="Quantum algorithms with industrial applications: cell placement, materials discovery, molecular simulation, search and sampling.">
+<meta name="description" content="Quantum algorithms with industrial applications: materials discovery, molecular simulation, optimisation, search and sampling.">
 <link rel="canonical" href="https://amplitwist.com/algorithms.html">
 
 <!-- Social preview. These must live in the HTML source: crawlers do not
@@ -12,14 +12,14 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Amplitwist">
 <meta property="og:title" content="Algorithms · Amplitwist">
-<meta property="og:description" content="Quantum algorithms with industrial applications: cell placement, materials discovery, molecular simulation, search and sampling — with an honest read on where each really stands.">
+<meta property="og:description" content="Quantum algorithms with industrial applications: materials discovery, molecular simulation, optimisation, search and sampling — with an honest read on where each really stands.">
 <meta property="og:url" content="https://amplitwist.com/algorithms.html">
 <meta property="og:image" content="https://amplitwist.com/assets/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Algorithms · Amplitwist">
-<meta name="twitter:description" content="Quantum algorithms with industrial applications: cell placement, materials discovery, molecular simulation, search and sampling — with an honest read on where each really stands.">
+<meta name="twitter:description" content="Quantum algorithms with industrial applications: materials discovery, molecular simulation, optimisation, search and sampling — with an honest read on where each really stands.">
 <meta name="twitter:image" content="https://amplitwist.com/assets/img/og.png">
 <meta name="theme-color" content="#07080f">
 
@@ -36,11 +36,12 @@
       <span class="eyebrow">Algorithm portfolio</span>
       <h1>Algorithms, and what they are<br>actually good for.</h1>
       <p class="lede">
-        Each entry states the problem, the quantum approach, the honest status today, and what
-        would have to change for it to beat the classical alternative. Status badges are
-        deliberate: <span class="status status-live">deployed</span> means it runs on real
-        problems, <span class="status status-research">research</span> means it works in
-        simulation, <span class="status">exploratory</span> means we are still mapping it out.
+        Explainers, not a portfolio. Each entry states the problem, the quantum approach, and
+        the honest status of that approach <em>in the field</em> — not work I am doing. Badges
+        reflect maturity in the literature: <span class="status status-live">textbook</span>
+        means it is settled and provable, <span class="status status-research">research</span>
+        means it works in simulation and is actively studied,
+        <span class="status">exploratory</span> means the case is still open.
       </p>
     </div>
   </section>
@@ -57,12 +58,13 @@
     <div class="wrap">
       <div class="card">
         <span class="eyebrow">Method</span>
-        <h3>How we evaluate a candidate</h3>
+        <h3>How to judge a quantum-advantage claim</h3>
         <p>
-          A quantum approach earns a place here only after we have tried hard to beat it classically.
-          The sequence is: formulate the problem, find the strongest classical baseline in the
-          literature, implement the quantum mapping, simulate it noiselessly, then add a realistic
-          noise model. Most candidates die at step four, and that result gets written up too.
+          A useful habit when reading any paper on this page, or any press release citing one:
+          formulate the problem, find the <em>strongest</em> classical baseline in the literature,
+          then check the quantum result was compared against that rather than against a naive
+          implementation. Most claimed advantages narrow sharply at this step, and a surprising
+          number vanish entirely.
         </p>
         <p class="mb-0">
           If you have a problem you think has the right structure —
@@ -80,30 +82,6 @@
 <script>
 /* Edit this array to add or change an algorithm entry. */
 var ALGORITHMS = [
-  {
-    id: 'placement',
-    icon: '◫',
-    name: 'Quantum-assisted cell placement',
-    family: 'Combinatorial optimisation',
-    status: 'Research',
-    statusClass: 'research',
-    problem:
-      'In chip physical design, hundreds of thousands of standard cells must be positioned to ' +
-      'minimise wirelength, timing violations and routing congestion. The search space is ' +
-      'factorial and the objective is non-convex — placement is one of the most expensive ' +
-      'steps in the entire EDA flow.',
-    approach:
-      'Encode placement as a QUBO: binary variables for cell-to-site assignment, penalty terms ' +
-      'for overlap and out-of-bounds, and a quadratic wirelength objective. The QUBO is then ' +
-      'attacked with quantum annealing or a QAOA-style variational circuit. Because full-chip ' +
-      'instances are far beyond current qubit counts, the practical route is partitioning: ' +
-      'solve small dense sub-regions quantum-side, keep global placement classical.',
-    reality:
-      'Classical analytical placers are extremely good and decades-tuned. The realistic near-term ' +
-      'target is not beating them outright but improving specific hard sub-blocks — macro ' +
-      'placement, congested regions — inside an otherwise classical flow.',
-    tags: ['QUBO', 'QAOA', 'Annealing', 'VLSI', 'EDA']
-  },
   {
     id: 'materials',
     icon: '◈',
@@ -165,7 +143,7 @@ var ALGORITHMS = [
       'Prepare a uniform superposition over all candidates, then repeatedly apply an oracle that ' +
       'flips the phase of solutions followed by an inversion about the mean. Each iteration ' +
       'rotates amplitude toward the solutions, so about √N iterations suffice — a provable ' +
-      'quadratic speedup, one of the few we can actually prove.',
+      'quadratic speedup, and one of the few that is actually provable.',
     reality:
       'Quadratic, not exponential. Once you account for error correction overhead, the crossover ' +
       'point where Grover beats a classical machine on real problems is far out. It remains the ' +

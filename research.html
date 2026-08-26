@@ -3,23 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Research</title>
-<meta name="description" content="Published and in-progress research on quantum algorithms for cell placement, materials discovery and molecular simulation.">
+<title>Key papers</title>
+<meta name="description" content="A curated reading list of landmark quantum computing papers — VQE, QAOA, tensor networks and the results that define the field's limits.">
 <link rel="canonical" href="https://amplitwist.com/research.html">
 
 <!-- Social preview. These must live in the HTML source: crawlers do not
      run JavaScript, so site.js cannot supply them. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Amplitwist">
-<meta property="og:title" content="Research · Amplitwist">
-<meta property="og:description" content="Published and in-progress research on quantum algorithms for cell placement, materials discovery and molecular simulation.">
+<meta property="og:title" content="Key papers · Amplitwist">
+<meta property="og:description" content="A curated reading list of landmark quantum computing papers — VQE, QAOA, tensor networks and the results that define the field's limits.">
 <meta property="og:url" content="https://amplitwist.com/research.html">
 <meta property="og:image" content="https://amplitwist.com/assets/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Research · Amplitwist">
-<meta name="twitter:description" content="Published and in-progress research on quantum algorithms for cell placement, materials discovery and molecular simulation.">
+<meta name="twitter:title" content="Key papers · Amplitwist">
+<meta name="twitter:description" content="A curated reading list of landmark quantum computing papers — VQE, QAOA, tensor networks and the results that define the field's limits.">
 <meta name="twitter:image" content="https://amplitwist.com/assets/img/og.png">
 <meta name="theme-color" content="#07080f">
 
@@ -33,12 +33,12 @@
 <main>
   <section class="hero" style="padding:74px 0 40px">
     <div class="wrap">
-      <span class="eyebrow">Publications</span>
-      <h1>Research</h1>
+      <span class="eyebrow">Reading list</span>
+      <h1>Key papers</h1>
       <p class="lede">
-        Peer-reviewed work, preprints, and things still in progress. Each entry links out to the
-        published version. Negative results are listed alongside positive ones — knowing which
-        mappings <em>don't</em> help is most of the value.
+        The published work worth reading, grouped by what you are trying to do. Each entry says
+        <em>why</em> it matters rather than just restating the abstract — a reading list is only
+        useful if it tells you what to skip. Every link goes to arXiv, so all of it is free.
       </p>
     </div>
   </section>
@@ -48,18 +48,7 @@
   <section>
     <div class="wrap">
 
-      <!-- This banner removes itself once no entry is marked placeholder -->
-      <div class="card" id="placeholderBanner"
-           style="border-color:rgba(242,181,68,0.4);background:rgba(242,181,68,0.07);margin-bottom:30px">
-        <h3 style="color:var(--amber);font-size:1.05rem">⚠ These entries are templates</h3>
-        <p class="mb-0" style="font-size:0.92rem">
-          The publications below are placeholders describing the topics you mentioned — they are
-          <strong>not real citations</strong>. Open <code>assets/js/papers.js</code> and replace the
-          titles, authors, venues and URLs with your actual work, then set
-          <code>placeholder: false</code> on each. This banner disappears automatically once no
-          entry is marked as a placeholder.
-        </p>
-      </div>
+      
 
       <div id="filters" class="tags" style="margin-bottom:26px"></div>
       <div class="grid" style="gap:16px" id="paperList"></div>
@@ -71,27 +60,30 @@
     <div class="wrap">
       <div class="grid grid-2">
         <div class="card">
-          <span class="eyebrow">Collaborate</span>
-          <h3>Working on something adjacent?</h3>
+          <span class="eyebrow">If you are just starting</span>
+          <h3>Read these three, in order</h3>
           <p class="mb-0">
-            We are interested in collaborations on problem formulation — particularly from people
-            with domain problems and no quantum background. The mapping step is where most of the
-            difficulty lives, and it needs the domain expert in the room.
+            Preskill's <em>NISQ era</em> paper for calibration, Cerezo's <em>Variational Quantum
+            Algorithms</em> review for the landscape, then McClean's <em>barren plateaus</em> for
+            the constraint that shapes everything else. That is a weekend, and it will save you
+            from a lot of over-optimistic reading later.
           </p>
         </div>
         <div class="card">
-          <span class="eyebrow">Preprints</span>
-          <h3>Everything goes to arXiv first</h3>
+          <span class="eyebrow">A habit worth forming</span>
+          <h3>Always find the classical baseline</h3>
           <p class="mb-0">
-            Preprints are posted before submission, and code accompanies every paper where licensing
-            allows. If a result here cannot be reproduced from what is published, treat that as a bug
-            and tell us.
+            The tensor-network papers here are not a detour — they are the competition. Most
+            claimed quantum advantages evaporate when someone runs a well-tuned classical method
+            on the same problem. Before believing any speedup, including your own, go and look for
+            what DMRG does with it.
           </p>
         </div>
       </div>
     </div>
   </section>
-</main>
+
+  </main>
 
 <div data-footer></div>
 
@@ -101,73 +93,61 @@
 (function () {
   var list = document.getElementById('paperList');
   var filterHost = document.getElementById('filters');
-  var banner = document.getElementById('placeholderBanner');
-  var activeTag = null;
+  var activeTopic = null;
 
-  if (!PAPERS.some(function (p) { return p.placeholder; })) banner.remove();
+  function url(p) { return 'https://arxiv.org/abs/' + p.arxiv; }
 
-  var allTags = [];
-  PAPERS.forEach(function (p) {
-    p.tags.forEach(function (t) { if (allTags.indexOf(t) === -1) allTags.push(t); });
+  // only show topics that actually have papers, in the TOPICS order
+  var topics = TOPICS.filter(function (t) {
+    return PAPERS.some(function (p) { return p.topic === t; });
   });
-  allTags.sort();
 
   function renderFilters() {
     filterHost.innerHTML =
-      '<button class="tag' + (activeTag === null ? ' tag-accent' : '') +
-        '" data-tag="" style="cursor:pointer;font-family:var(--mono)">All (' + PAPERS.length + ')</button>' +
-      allTags.map(function (t) {
-        return '<button class="tag' + (activeTag === t ? ' tag-accent' : '') +
-               '" data-tag="' + t + '" style="cursor:pointer;font-family:var(--mono)">' + t + '</button>';
+      '<button class="tag' + (activeTopic === null ? ' tag-accent' : '') +
+        '" data-topic="" style="cursor:pointer;font-family:var(--mono)">All (' + PAPERS.length + ')</button>' +
+      topics.map(function (t) {
+        var n = PAPERS.filter(function (p) { return p.topic === t; }).length;
+        return '<button class="tag' + (activeTopic === t ? ' tag-accent' : '') +
+               '" data-topic="' + t + '" style="cursor:pointer;font-family:var(--mono)">' +
+               t + ' (' + n + ')</button>';
       }).join('');
 
     filterHost.querySelectorAll('button').forEach(function (b) {
       b.addEventListener('click', function () {
-        activeTag = b.dataset.tag || null;
+        activeTopic = b.dataset.topic || null;
         renderFilters();
         renderList();
       });
     });
   }
 
-  function renderList() {
-    var shown = activeTag
-      ? PAPERS.filter(function (p) { return p.tags.indexOf(activeTag) !== -1; })
-      : PAPERS;
-
-    if (!shown.length) {
-      list.innerHTML = '<p class="dim">Nothing tagged that yet.</p>';
-      return;
-    }
-
-    list.innerHTML = shown.map(function (p) {
-      var isLink = p.url && p.url !== '#';
-      var open = isLink
-        ? '<a class="card card-link" href="' + p.url + '" target="_blank" rel="noopener">'
-        : '<article class="card">';
-      var close = isLink ? '</a>' : '</article>';
-
-      var flag = p.placeholder
-        ? '<span class="tag" style="background:rgba(242,181,68,0.14);border-color:rgba(242,181,68,0.4);color:var(--amber)">placeholder — add link</span>'
-        : '';
-
-      return open +
-        '<div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:baseline">' +
-          '<span class="status status-' + p.statusClass + '">' + p.status + '</span>' +
+  function card(p) {
+    return '' +
+      '<a class="card card-link" href="' + url(p) + '" target="_blank" rel="noopener">' +
+        '<div style="display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:baseline">' +
+          '<span class="tag tag-cyan">' + p.topic + '</span>' +
           '<span class="mono dim" style="font-size:0.78rem">' + p.year + '</span>' +
         '</div>' +
-        '<h3 style="margin:11px 0 7px;font-size:1.16rem">' + p.title +
-          (isLink ? ' <span style="color:var(--accent-bright);font-size:0.85em">↗</span>' : '') +
-        '</h3>' +
+        '<h3 style="margin:11px 0 7px;font-size:1.1rem;line-height:1.38">' + p.title +
+          ' <span style="color:var(--accent-bright);font-size:0.82em">↗</span></h3>' +
         '<div class="mono dim" style="font-size:0.79rem;margin-bottom:11px">' +
-          p.authors + ' · <em>' + p.venue + '</em>' +
+          p.authors + ' · <em>' + p.venue + '</em></div>' +
+        '<p style="font-size:0.92rem">' + p.note + '</p>' +
+        '<div class="tags">' +
+          p.tags.map(function (t) { return '<span class="tag">' + t + '</span>'; }).join('') +
+          '<span class="tag mono" style="color:var(--text-dim)">arXiv:' + p.arxiv + '</span>' +
         '</div>' +
-        '<p style="font-size:0.93rem">' + p.summary + '</p>' +
-        '<div class="tags">' + p.tags.map(function (t) {
-          return '<span class="tag">' + t + '</span>';
-        }).join('') + flag + '</div>' +
-      close;
-    }).join('');
+      '</a>';
+  }
+
+  function renderList() {
+    var shown = activeTopic
+      ? PAPERS.filter(function (p) { return p.topic === activeTopic; })
+      : PAPERS.slice().sort(function (a, b) {
+          return TOPICS.indexOf(a.topic) - TOPICS.indexOf(b.topic);
+        });
+    list.innerHTML = shown.map(card).join('');
   }
 
   renderFilters();

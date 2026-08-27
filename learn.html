@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learn</title>
-<meta name="description" content="A visual introduction to quantum computing: qubits, superposition, phase, interference, entanglement, measurement, and how a quantum algorithm works.">
+<meta name="description" content="A visual introduction to quantum computing: the linear algebra you need, qubits, superposition, phase, interference, entanglement, measurement, and how a quantum algorithm works.">
 <link rel="canonical" href="https://amplitwist.com/learn.html">
 
 <!-- Social preview. These must live in the HTML source: crawlers do not
@@ -12,14 +12,14 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Amplitwist">
 <meta property="og:title" content="Learn · Amplitwist">
-<meta property="og:description" content="A free visual introduction to quantum computing: qubits, superposition, phase, interference, entanglement, measurement and Grover’s search — every concept backed by a live simulation.">
+<meta property="og:description" content="A free visual introduction to quantum computing: linear algebra, qubits, superposition, phase, interference, entanglement, measurement and Grover’s search, every concept backed by a live simulation.">
 <meta property="og:url" content="https://amplitwist.com/learn.html">
 <meta property="og:image" content="https://amplitwist.com/assets/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Learn · Amplitwist">
-<meta name="twitter:description" content="A free visual introduction to quantum computing: qubits, superposition, phase, interference, entanglement, measurement and Grover’s search — every concept backed by a live simulation.">
+<meta name="twitter:description" content="A free visual introduction to quantum computing: linear algebra, qubits, superposition, phase, interference, entanglement, measurement and Grover’s search, every concept backed by a live simulation.">
 <meta name="twitter:image" content="https://amplitwist.com/assets/img/og.png">
 <meta name="theme-color" content="#07080f">
 
@@ -33,10 +33,10 @@
 <main>
   <section class="hero" style="padding:70px 0 34px">
     <div class="wrap-narrow" style="padding:0 24px">
-      <span class="eyebrow">Free course · 7 lessons · no signup</span>
+      <span class="eyebrow">Free course · 8 lessons · no signup</span>
       <h1>Quantum computing,<br>one visual at a time.</h1>
       <p class="lede">
-        Every simulation on this page is real — a state-vector simulator runs in your browser and
+        Every simulation on this page is real. A state-vector simulator runs in your browser and
         the pictures are drawn from its actual amplitudes. Drag the spheres. Break things. The
         fastest way to understand a qubit is to push one around.
       </p>
@@ -49,16 +49,166 @@
     <!-- ============ LESSON 1 ============ -->
     <article class="lesson active" data-lesson="0">
       <span class="lesson-num">Lesson 1</span>
+      <h2>The linear algebra you actually need</h2>
+      <p>
+        Quantum mechanics has a reputation. The mathematics used on this site does not deserve one:
+        it is a column of two numbers, and matrices that shuffle those numbers around. If you can
+        multiply a 2×2 matrix by a 2-vector, nothing in the seven lessons that follow is out
+        of reach.
+      </p>
+      <p>
+        There are four ideas, and that is the whole toolkit. A state is a <strong>vector</strong>.
+        A gate is a <strong>matrix</strong>. A probability is a <strong>squared magnitude</strong>.
+        Two qubits combine with a <strong>tensor product</strong>.
+      </p>
+
+      <h3>1. A state is a column of numbers</h3>
+      <p>
+        Write the two definite answers as vectors: |0⟩ is the column (1, 0) and |1⟩ is
+        the column (0, 1). Every other state is a mixture of the two,
+        |ψ⟩ = a|0⟩ + b|1⟩, which is just the column (a, b). Those two numbers
+        are the <strong>amplitudes</strong>, and they are complex, which turns out to be the entire
+        source of the interesting behaviour.
+      </p>
+      <p>
+        One rule constrains them: |a|² + |b|² = 1. Geometrically that says the vector has
+        length 1, so every legal state sits on the surface of a sphere rather than anywhere in
+        space. That sphere is the picture you will be dragging around in Lesson 2.
+      </p>
+
+      <div class="readout" style="margin:18px 0">|0⟩  =  [ 1 ]        |1⟩  =  [ 0 ]        |ψ⟩  =  [ a ]
+        [ 0 ]                [ 1 ]                [ b ]
+
+<span class="z">the one rule:</span>  |a|² + |b|² = 1   <span class="z">every state has length 1</span>
+
+<span class="z">bra-ket notation, decoded</span>
+  |ψ⟩     <span class="z">a column of numbers, the "ket"</span>
+  ⟨ψ|     <span class="z">the same numbers as a row, conjugated, the "bra"</span>
+  ⟨φ|ψ⟩   <span class="z">a dot product: how much two states overlap</span></div>
+
+      <h3>2. A gate is a matrix</h3>
+      <p>
+        A quantum gate does one thing to your state: it multiplies the column by a matrix. The
+        Hadamard gate, which you will meet properly next lesson, is nothing more mysterious than
+        the matrix below, and applying it is ordinary row-times-column arithmetic.
+      </p>
+      <p>
+        Every legal gate matrix is <strong>unitary</strong>, which means it preserves the length of
+        the vector. Two consequences follow immediately and both matter. Probabilities always still
+        sum to 1, because the length never changes. And every gate is reversible, because a unitary
+        matrix always has an inverse. There is no quantum gate that erases information, which is
+        why quantum circuits can be run backwards and why so much effort goes into uncomputing
+        scratch work.
+      </p>
+
+      <div class="lab">
+        <div class="lab-head">
+          <span class="lab-title">Interactive · matrix times vector</span>
+          <span style="margin-left:auto" class="mono dim" id="laSeq">applied: (nothing yet)</span>
+        </div>
+        <div class="lab-body">
+          <div class="lab-split">
+            <div>
+              <canvas id="laBloch" class="bloch-canvas" style="--bloch-size:250px"></canvas>
+              <div class="viz-caption">the same two numbers, drawn as an arrow</div>
+            </div>
+            <div>
+              <div class="gate-row">
+                <span class="gate-label">Multiply the vector by</span>
+                <button class="gate g-h" data-la="H">H</button>
+                <button class="gate" data-la="X">X</button>
+                <button class="gate" data-la="Y">Y</button>
+                <button class="gate" data-la="Z">Z</button>
+                <button class="gate" data-la="S">S</button>
+                <button class="gate" data-la="T">T</button>
+                <button class="gate" data-la="reset">reset</button>
+              </div>
+              <div class="readout" id="laOut"></div>
+            </div>
+          </div>
+        </div>
+        <div class="lab-foot">
+          Press X twice, or H twice, and you land exactly back where you started. That is
+          reversibility, visible: the matrix undoes itself. Press S four times for the same effect
+          by a longer route, and watch the arrow walk around the equator rather than jump.
+        </div>
+      </div>
+
+      <h3>3. Probability is the square of the magnitude</h3>
+      <p>
+        The amplitudes are not probabilities. To get a probability you square the magnitude: you
+        see 0 with probability |a|² and 1 with probability |b|². This step is where the
+        interesting information goes to die. Squaring throws away sign, and more generally throws
+        away phase, so states that are genuinely different can be indistinguishable to a
+        measurement. Lesson 4 is entirely about that gap, and Lesson 5 is about exploiting it.
+      </p>
+
+      <h3>4. Two qubits multiply, they do not stack</h3>
+      <p>
+        Put two qubits side by side and you do not get four numbers by writing two lists next to
+        each other. You get the <strong>tensor product</strong>: every amplitude of the first qubit
+        multiplied by every amplitude of the second. Two numbers and two numbers make four.
+      </p>
+
+      <div class="lab">
+        <div class="lab-head"><span class="lab-title">Interactive · the tensor product</span></div>
+        <div class="lab-body">
+          <div class="lab-split">
+            <div>
+              <div class="slider-row">
+                <label>qubit A &nbsp;tilt <b id="laAv">0°</b></label>
+                <input type="range" id="laA" min="0" max="180" value="0">
+              </div>
+              <div class="slider-row">
+                <label>qubit B &nbsp;tilt <b id="laBv">90°</b></label>
+                <input type="range" id="laB" min="0" max="180" value="90">
+              </div>
+              <canvas id="laBars" class="bars-canvas" style="height:150px"></canvas>
+              <div class="viz-caption">the four combined amplitudes</div>
+            </div>
+            <div>
+              <div class="readout" id="laTensor"></div>
+            </div>
+          </div>
+        </div>
+        <div class="lab-foot">
+          Three qubits give eight amplitudes, ten give a thousand, fifty give a quadrillion. At
+          about 300 qubits the list of numbers you would need to write down is longer than the
+          count of atoms in the observable universe. That doubling is the whole reason simulating
+          quantum systems on a classical computer becomes hopeless, and the reason the simulator
+          behind this page stops at a handful of qubits.
+        </div>
+      </div>
+
+      <div class="keypoint">
+        <p><strong>What you can safely skip:</strong> determinants, Gram-Schmidt, matrix
+        decompositions, and most of a first linear algebra course. Eigenvectors are worth knowing
+        eventually, since a measurement basis is a set of them, but you can get through every
+        lesson here without that. Vectors, matrix multiplication, complex numbers and the tensor
+        product are enough.</p>
+      </div>
+
+      <div class="misconception">
+        <p><strong>Common mistake:</strong> treating the amplitudes as probabilities that happen to
+        be written oddly. They are not. Probabilities are non-negative and simply add up.
+        Amplitudes can be negative or complex, and two of them can add to zero. Everything a
+        quantum computer does that a classical one cannot comes out of that single difference.</p>
+      </div>
+    </article>
+
+    <!-- ============ LESSON 2 ============ -->
+    <article class="lesson" data-lesson="1">
+      <span class="lesson-num">Lesson 2</span>
       <h2>The qubit is an arrow, not a coin</h2>
       <p>
-        A classical bit is 0 or 1. A qubit's state is a point on the surface of a sphere — the
+        A classical bit is 0 or 1. A qubit's state is a point on the surface of a sphere, the
         <strong>Bloch sphere</strong>. The north pole is |0⟩, the south pole is |1⟩, and every
         other point is a valid state that is neither.
       </p>
       <p>
         Two angles fix that point. <code>θ</code> tilts the arrow away from the north pole and
         controls how much |0⟩ versus |1⟩ you have. <code>φ</code> spins it around the vertical
-        axis — that is the <em>phase</em>, and Lesson 3 is entirely about why it matters.
+        axis, and that is the <em>phase</em>, which Lesson 4 is entirely about.
       </p>
 
       <div class="lab">
@@ -91,7 +241,7 @@
         </div>
         <div class="lab-foot">
           Notice that the arrow always has length 1. It can point anywhere on the surface, but it
-          can never be shorter — for a single isolated qubit. Lesson 5 shows the one thing that
+          can never be shorter, at least for a single isolated qubit. Lesson 6 shows the one thing that
           shrinks it.
         </div>
       </div>
@@ -103,13 +253,13 @@
       </div>
     </article>
 
-    <!-- ============ LESSON 2 ============ -->
-    <article class="lesson" data-lesson="1">
-      <span class="lesson-num">Lesson 2</span>
+    <!-- ============ LESSON 3 ============ -->
+    <article class="lesson" data-lesson="2">
+      <span class="lesson-num">Lesson 3</span>
       <h2>Superposition, and the Hadamard gate</h2>
       <p>
         The <strong>Hadamard gate</strong> (H) is the workhorse of quantum computing. Applied to
-        |0⟩ it produces |+⟩ — an equal superposition where measuring gives 0 half the time and 1
+        |0⟩ it produces |+⟩, an equal superposition where measuring gives 0 half the time and 1
         half the time.
       </p>
       <p>
@@ -153,8 +303,8 @@
         </div>
         <div class="lab-foot">
           Try: <code>H</code> then <code>H</code>. Then try <code>H</code>, measure ×1000, and
-          watch it land near 50/50. Then <code>H</code> <code>Z</code> <code>H</code> — and see
-          Lesson 4.
+          watch it land near 50/50. Then <code>H</code> <code>Z</code> <code>H</code>, and see
+          Lesson 5.
         </div>
       </div>
 
@@ -165,18 +315,18 @@
       </div>
     </article>
 
-    <!-- ============ LESSON 3 ============ -->
-    <article class="lesson" data-lesson="2">
-      <span class="lesson-num">Lesson 3</span>
+    <!-- ============ LESSON 4 ============ -->
+    <article class="lesson" data-lesson="3">
+      <span class="lesson-num">Lesson 4</span>
       <h2>Phase: the half you cannot measure</h2>
       <p>
         Amplitudes are complex numbers. Each has a magnitude (which sets the probability) and an
-        <strong>angle</strong> — the phase. Measurement throws the phase away completely, which is
+        <strong>angle</strong>, which is the phase. Measurement throws the phase away completely, which is
         why it feels like it should not matter.
       </p>
       <p>
         Drag the phase slider below. The probability bars do not move. At all. The Bloch arrow
-        meanwhile is spinning around the equator, so the state is genuinely changing — you just
+        meanwhile is spinning around the equator, so the state is genuinely changing. You just
         cannot see it in a measurement.
       </p>
 
@@ -207,23 +357,23 @@
 
       <div class="keypoint">
         <p><strong>Hold this thought:</strong> phase is invisible to measurement but <em>not</em>
-        invisible to later gates. Lesson 4 converts phase into something you can actually see.</p>
+        invisible to later gates. Lesson 5 converts phase into something you can actually see.</p>
       </div>
     </article>
 
-    <!-- ============ LESSON 4 ============ -->
-    <article class="lesson" data-lesson="3">
-      <span class="lesson-num">Lesson 4</span>
+    <!-- ============ LESSON 5 ============ -->
+    <article class="lesson" data-lesson="4">
+      <span class="lesson-num">Lesson 5</span>
       <h2>Interference is where the speedup comes from</h2>
       <p>
         Here is the circuit that makes phase real: <code>H → phase(φ) → H</code>. The first H
         splits into two paths. The phase gate shifts one path relative to the other. The second H
-        brings them back together — and where the phases are opposed, the amplitudes
+        brings them back together, and where the phases are opposed, the amplitudes
         <strong>cancel</strong>.
       </p>
       <p>
         Sweep φ below. At 0° you get |0⟩ with certainty. At 180° you get |1⟩ with certainty.
-        Same circuit, same starting state, opposite outcome — from a parameter that was invisible
+        Same circuit, same starting state, opposite outcome, all from a parameter that was invisible
         one lesson ago.
       </p>
 
@@ -260,14 +410,14 @@
 
       <div class="misconception">
         <p><strong>Common mistake:</strong> "Quantum computers try every answer in parallel."
-        They do explore many branches — but you only get one measurement, and a random branch is
+        They do explore many branches, but you only get one measurement, and a random branch is
         useless. The work is in the interference pattern that makes the useful branch likely.</p>
       </div>
     </article>
 
-    <!-- ============ LESSON 5 ============ -->
-    <article class="lesson" data-lesson="4">
-      <span class="lesson-num">Lesson 5</span>
+    <!-- ============ LESSON 6 ============ -->
+    <article class="lesson" data-lesson="5">
+      <span class="lesson-num">Lesson 6</span>
       <h2>Entanglement: the arrows disappear</h2>
       <p>
         Two qubits. Apply H to the first, then a <strong>CNOT</strong> (flip the second if the
@@ -275,7 +425,7 @@
       </p>
       <p>
         Now watch the Bloch spheres as you build it. They <em>shrink to nothing</em>. That is not
-        a rendering bug — it is the definition of entanglement. Neither qubit has a state of its
+        a rendering bug. It is the definition of entanglement. Neither qubit has a state of its
         own any more. All the information lives in the correlation between them.
       </p>
 
@@ -322,7 +472,7 @@
           </div>
         </div>
         <div class="lab-foot">
-          After building the Bell pair, run 200 shots. You will see |00⟩ and |11⟩ only — never
+          After building the Bell pair, run 200 shots. You will see |00⟩ and |11⟩ only, never
           |01⟩ or |10⟩. The two qubits always agree, even though each one alone is completely random.
         </div>
       </div>
@@ -334,12 +484,12 @@
       </div>
     </article>
 
-    <!-- ============ LESSON 6 ============ -->
-    <article class="lesson" data-lesson="5">
-      <span class="lesson-num">Lesson 6</span>
+    <!-- ============ LESSON 7 ============ -->
+    <article class="lesson" data-lesson="6">
+      <span class="lesson-num">Lesson 7</span>
       <h2>Measurement is destructive, and that is the whole problem</h2>
       <p>
-        Measuring collapses the state. Not "reveals what it secretly was" — collapses. Before
+        Measuring collapses the state. Not "reveals what it secretly was". Collapses. Before
         measurement the qubit genuinely had no definite value; after measurement it is pinned, and
         the superposition is gone for good.
       </p>
@@ -382,20 +532,21 @@
       </div>
     </article>
 
-    <!-- ============ LESSON 7 ============ -->
-    <article class="lesson" data-lesson="6">
-      <span class="lesson-num">Lesson 7</span>
+    <!-- ============ LESSON 8 ============ -->
+    <article class="lesson" data-lesson="7">
+      <span class="lesson-num">Lesson 8</span>
       <h2>Putting it together: Grover's search</h2>
       <p>
-        Eight boxes, one prize. Classically you open boxes until you find it — about four tries on
-        average, eight worst case. Grover's algorithm finds it in <strong>two</strong> iterations —
-        ⌊(π/4)√8⌋ — and the mechanism is exactly what the last six lessons built up.
+        Eight boxes, one prize. Classically you open boxes until you find it, about four tries on
+        average and eight in the worst case. Grover's algorithm finds it in <strong>two</strong>
+        iterations, ⌊(π/4)√8⌋ of them, and the mechanism is exactly what the last seven lessons
+        built up.
       </p>
       <p>
-        Start with an equal superposition over all eight (Lesson 2). The <strong>oracle</strong>
-        flips the <em>phase</em> of the marked item — invisible to measurement (Lesson 3). Then
+        Start with an equal superposition over all eight (Lesson 3). The <strong>oracle</strong>
+        flips the <em>phase</em> of the marked item, invisible to measurement (Lesson 4). Then
         <strong>diffusion</strong> reflects every amplitude about their mean, converting that
-        phase difference into a height difference (Lesson 4). Repeat.
+        phase difference into a height difference (Lesson 5). Repeat.
       </p>
 
       <div class="lab">
@@ -427,14 +578,14 @@
         </div>
         <div class="lab-foot">
           Run "full iteration" twice: the marked item goes 12.5% → 78% → <strong>94.5%</strong>.
-          Now run it a third time and watch it crash back to 33%. Grover <em>overshoots</em> — the
+          Now run it a third time and watch it crash back to 33%. Grover <em>overshoots</em>: the
           amplitude rotates past the target and keeps going, so knowing when to stop is part of
           the algorithm, not an afterthought.
         </div>
       </div>
 
       <div class="keypoint">
-        <p><strong>The honest caveat:</strong> this is a quadratic speedup — √N instead of N. Real
+        <p><strong>The honest caveat:</strong> this is a quadratic speedup, √N instead of N. Real
         and provable, but not the exponential kind. Once error-correction overhead is included,
         the crossover point where this beats a classical search is a long way off.</p>
       </div>

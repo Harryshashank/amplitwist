@@ -1,5 +1,5 @@
 /* ============================================================
-   site.js — brand config, shared nav/footer, small helpers.
+   site.js: brand config, shared nav/footer, small helpers.
 
    THE NAME LIVES HERE. Change SITE.name / SITE.short below and
    every page updates. Nothing else hardcodes the company name,
@@ -9,8 +9,8 @@
 var SITE = {
   name:    'Amplitwist',
   short:   'Amplitwist',
-  tagline: 'Learning quantum algorithms in public — simulations, explainers and notes.',
-  // Deliberately a placeholder — put whatever address you actually want
+  tagline: 'Learning quantum algorithms in public: simulations, explainers and notes.',
+  // Deliberately a placeholder. Put whatever address you actually want
   // published here. Anything with [data-site-email] picks it up.
   email:   'shashank.gupta2@case.edu',
   year:    new Date().getFullYear()
@@ -19,6 +19,7 @@ var SITE = {
 var NAV = [
   { href: 'index.html',       label: 'Home' },
   { href: 'algorithms.html',  label: 'Algorithms' },
+  { href: 'hardware.html',    label: 'Hardware' },
   { href: 'research.html',    label: 'Research' },
   { href: 'books.html',       label: 'Books' },
   { href: 'learn.html',       label: 'Learn' },
@@ -26,14 +27,14 @@ var NAV = [
 ];
 
 /* ------------------------------------------------------------
-   FOUNDER — your details. Edit these.
+   FOUNDER: your details. Edit these.
 
    photo: drop a headshot at assets/img/founder.jpg (square works
    best, ~600x600). If the file is missing or fails to load, the
    page falls back to a monogram of your initials instead of
    showing a broken image, so it never looks unfinished.
 
-   Any link with an empty url is skipped, so delete nothing —
+   Any link with an empty url is skipped, so delete nothing:
    just leave the ones you don't have blank.
    ------------------------------------------------------------ */
 var FOUNDER = {
@@ -42,7 +43,7 @@ var FOUNDER = {
   photo: 'assets/img/founder.jpg',
   bio:   'PhD candidate in condensed matter physics at Case Western Reserve ' +
          'University, working on variational quantum algorithms, tensor networks ' +
-         'and many-body simulation — mostly VQE, QITE and QAOA in Qiskit and ' +
+         'and many-body simulation, mostly VQE, QITE and QAOA in Qiskit and ' +
          'PennyLane, and matrix product states in ITensors. Amplitwist is where I ' +
          'write it up for people who do not already speak the language.',
   links: [
@@ -55,7 +56,7 @@ var FOUNDER = {
 /* Logo: two orbital rings around a nucleus. Inline SVG so it
    inherits currentColor and needs no image request. */
 /* The mark is the name's definition: a logarithmic spiral, r = r0·e^(bθ),
-   which grows and rotates at once — an amplitwist. Cyan inner turns hand off
+   which grows and rotates at once, an amplitwist. Cyan inner turns hand off
    to violet outer turns, with an arrowhead on the tangent at the tip.
    Generated geometry; edit the path data only if you regenerate the spiral. */
 var BRAND_MARK =
@@ -109,7 +110,7 @@ var BRAND_MARK =
         '</div>' +
         '<div class="footer-note">' +
           '&copy; ' + SITE.year + ' ' + SITE.name + '. ' +
-          'Simulations on this site run in your browser on a classical computer — ' +
+          'Simulations on this site run in your browser on a classical computer: ' +
           'they reproduce the mathematics of small quantum systems, not quantum hardware.' +
         '</div>' +
       '</div></footer>';

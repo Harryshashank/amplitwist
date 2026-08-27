@@ -1,12 +1,12 @@
 /* ============================================================
-   books.js — the reading list.
+   books.js: the reading list.
 
    >>> EDIT THIS FILE TO CHANGE THE BOOKSHELF. <<<
 
    Two shelves, controlled by the `shelf` field:
-     'authored'    — books YOU wrote. Shown first, in their own section.
+     'authored'    = books YOU wrote. Shown first, in their own section.
                      There are none yet; add them as they exist.
-     'recommended' — books you point people at.
+     'recommended' = books you point people at.
 
    Titles, authors and publishers below are real and accurate, but
    `url` is left empty on purpose: I won't guess at specific product
@@ -17,11 +17,11 @@
 
    Fields:
      title, authors, publisher, year
-     level     — 'Start here' | 'Core' | 'Deeper' | 'Reference' | 'Context'
-     shelf     — 'authored' | 'recommended'
-     note      — why YOU are recommending it, in your own voice
-     tags      — filter chips
-     url       — optional; overrides the search fallback
+     level     : 'Start here' | 'Core' | 'Deeper' | 'Reference' | 'Context'
+     shelf     : 'authored' | 'recommended'
+     note      : why YOU are recommending it, in your own voice
+     tags      : filter chips
+     url       : optional; overrides the search fallback
    ============================================================ */
 
 var BOOKS = [
@@ -47,7 +47,7 @@ var BOOKS = [
     level: 'Reference',
     shelf: 'recommended',
     note: 'Universally called "Mike & Ike". It is the standard reference and has been ' +
-          'for two decades. Not a first book — but every serious practitioner ends up ' +
+          'for two decades. Not a first book, but every serious practitioner ends up ' +
           'owning a copy, and most arguments in the field are settled by opening it.',
     tags: ['Reference', 'Rigorous', 'Graduate'],
     url: ''
@@ -61,7 +61,7 @@ var BOOKS = [
     shelf: 'recommended',
     note: 'Complexity theory, philosophy, and quantum computing, written by someone ' +
           'genuinely funny. It will not teach you to build a circuit. It will teach you ' +
-          'to think clearly about what quantum computers can and cannot do — which is ' +
+          'to think clearly about what quantum computers can and cannot do, which is ' +
           'the skill most often missing.',
     tags: ['Complexity', 'Philosophy', 'Opinionated'],
     url: ''
@@ -99,7 +99,7 @@ var BOOKS = [
     year: 2007,
     level: 'Core',
     shelf: 'recommended',
-    note: 'Short, tight and rigorous — the algorithms without the doorstop. A good ' +
+    note: 'Short, tight and rigorous: the algorithms without the doorstop. A good ' +
           'bridge between a first practical book and the full reference.',
     tags: ['Algorithms', 'Concise', 'Rigorous'],
     url: ''
@@ -111,8 +111,8 @@ var BOOKS = [
     year: 2021,
     level: 'Core',
     shelf: 'recommended',
-    note: 'Strong on the applied side — hardware, toolchains and the actual state of the ' +
-          'industry — with a maths refresher in the back. Useful if you care about what ' +
+    note: 'Strong on the applied side, covering hardware, toolchains and the actual ' +
+          'state of the industry, with a maths refresher in the back. Useful if you care about what ' +
           'runs today rather than what is provable in principle.',
     tags: ['Applied', 'Industry', 'Hardware'],
     url: ''
@@ -136,7 +136,7 @@ var BOOKS = [
     year: 2014,
     level: 'Context',
     shelf: 'recommended',
-    note: 'Not a quantum computing book — a quantum mechanics book, aimed at adults who ' +
+    note: 'Not a quantum computing book but a quantum mechanics book, aimed at adults who ' +
           'want the real formalism without a degree. Read it if the physics underneath ' +
           'the gates feels like a black box.',
     tags: ['Physics', 'Foundations', 'Accessible'],

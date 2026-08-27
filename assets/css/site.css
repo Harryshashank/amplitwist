@@ -1,6 +1,6 @@
 /* ============================================================
    Core design system.
-   Colors, type scale, and spacing all live here as tokens —
+   Colors, type scale, and spacing all live here as tokens:
    change a token, the whole site follows.
    ============================================================ */
 
@@ -49,7 +49,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Ambient background glow — pure CSS, no images */
+/* Ambient background glow: pure CSS, no images */
 body::before {
   content: "";
   position: fixed;
@@ -210,6 +210,17 @@ hr.rule { border: 0; border-top: 1px solid var(--border); margin: 0; }
 .tag-accent { background: var(--accent-dim); border-color: rgba(124,108,255,0.3); color: var(--accent-bright); }
 .tag-cyan   { background: var(--cyan-dim);  border-color: rgba(79,214,232,0.3);  color: var(--cyan); }
 
+/* Horizon badges on the applications grid: a pill like .tag, but carrying a
+   status dot, so a maturity label can sit in the same row as topic tags
+   without looking like a different species. */
+.tag-status { display: inline-flex; align-items: center; gap: 6px; }
+.tag-status::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--amber); box-shadow: 0 0 9px currentColor;
+}
+.tag-near::before  { background: var(--green); }
+.tag-early::before { background: var(--cyan); }
+
 .status {
   display: inline-flex; align-items: center; gap: 7px;
   font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em;
@@ -221,6 +232,58 @@ hr.rule { border: 0; border-top: 1px solid var(--border); margin: 0; }
 }
 .status-live::before   { background: var(--green); }
 .status-research::before { background: var(--cyan); }
+
+/* ---------- Comparison table ---------- */
+
+/* Seven columns of hardware trade-offs will never fit a phone, so the table
+   scrolls inside its own box rather than pushing the page sideways. */
+.table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.cmp {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 780px;
+  font-size: 0.86rem;
+}
+.cmp th {
+  text-align: left;
+  font-family: var(--mono); font-size: 0.68rem;
+  letter-spacing: 0.11em; text-transform: uppercase;
+  color: var(--text-dim); font-weight: 500;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-bright);
+  white-space: nowrap;
+}
+.cmp td {
+  padding: 14px 16px;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.cmp tbody tr:last-child td { border-bottom: 0; }
+.cmp tbody tr:hover td { background: var(--surface-hover); }
+.cmp-name { color: var(--text); font-weight: 600; white-space: nowrap; }
+.cmp-name a { color: var(--text); }
+.cmp-name a:hover { color: var(--accent-bright); }
+
+/* ---------- Labelled sub-sections inside a card ---------- */
+
+.section-label {
+  font-family: var(--mono); font-size: 0.73rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-dim); margin: 18px 0 5px; font-weight: 500;
+}
+.section-label:first-child { margin-top: 0; }
+
+.pc-list { margin: 0; padding-left: 18px; color: var(--text-muted); font-size: 0.92rem; }
+.pc-list li { margin-bottom: 7px; }
+.pc-list li:last-child { margin-bottom: 0; }
+.pc-good li::marker { color: var(--green); }
+.pc-bad  li::marker { color: var(--rose); }
 
 /* ---------- Buttons ---------- */
 
@@ -296,7 +359,7 @@ footer {
   z-index: 1;
 }
 /* The monogram sits underneath and only becomes visible when the
-   <img> removes itself on error — so a missing headshot degrades to
+   <img> removes itself on error, so a missing headshot degrades to
    initials rather than a broken-image icon. */
 .founder-monogram {
   position: absolute;

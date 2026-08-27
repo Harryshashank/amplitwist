@@ -1,5 +1,5 @@
 /* ============================================================
-   papers.js — curated reading list of published work.
+   papers.js: curated reading list of published work.
 
    >>> EDIT THIS FILE TO ADD OR REMOVE A PAPER. <<<
    research.html and the home page both read from this array.
@@ -13,14 +13,14 @@
    they are free to read, stable, and never sit behind a paywall.
 
    Fields:
-     title    — exact paper title
-     authors  — 'First Author et al.' for long author lists
-     venue    — journal reference, or 'arXiv preprint' if unpublished
-     year     — year of the version being cited
-     arxiv    — arXiv ID; the link is built from this
-     topic    — groups and filters the list (see TOPICS below)
-     note     — why this one is worth your time, in plain language
-     tags     — filter chips
+     title    : exact paper title
+     authors  : 'First Author et al.' for long author lists
+     venue    : journal reference, or 'arXiv preprint' if unpublished
+     year     : year of the version being cited
+     arxiv    : arXiv ID; the link is built from this
+     topic    : groups and filters the list (see TOPICS below)
+     note     : why this one is worth your time, in plain language
+     tags     : filter chips
    ============================================================ */
 
 var TOPICS = [
@@ -44,7 +44,7 @@ var PAPERS = [
     topic: 'Foundations',
     note: 'The paper that made everyone care. An exponential speedup for factoring, ' +
           'which is why quantum computing has a budget. Read it for the structure of ' +
-          'the argument — period finding is the actual engine, and factoring is a ' +
+          'the argument: period finding is the actual engine, and factoring is a ' +
           'corollary.',
     tags: ['Shor', 'Factoring', 'Period finding']
   },
@@ -56,7 +56,7 @@ var PAPERS = [
     arxiv: 'quant-ph/9605043',
     topic: 'Foundations',
     note: 'Four pages, and the cleanest demonstration in the literature that ' +
-          'interference does real work. Quadratic rather than exponential — but ' +
+          'interference does real work. Quadratic rather than exponential, but ' +
           'provable, and general enough to apply to any unstructured search.',
     tags: ['Grover', 'Amplitude amplification', 'Search']
   },
@@ -69,7 +69,7 @@ var PAPERS = [
     topic: 'Foundations',
     note: 'The origin of the adiabatic model and everything annealing-shaped that ' +
           'followed. Start in the ground state of something easy, deform slowly to ' +
-          'something hard. The whole question is how slowly — and that is set by the ' +
+          'something hard. The whole question is how slowly, and that is set by the ' +
           'spectral gap, which is where the difficulty hides.',
     tags: ['Adiabatic', 'Annealing', 'Spectral gap']
   },
@@ -83,7 +83,7 @@ var PAPERS = [
     arxiv: '1304.3061',
     topic: 'Variational algorithms',
     note: 'The original VQE paper. Worth reading precisely because the hardware was ' +
-          'so limited — it forced the hybrid design where the quantum device only ' +
+          'so limited: it forced the hybrid design where the quantum device only ' +
           'prepares and measures, and a classical optimiser does the rest. That ' +
           'compromise is why VQE runs on noisy machines at all.',
     tags: ['VQE', 'Hybrid', 'Foundational']
@@ -95,7 +95,7 @@ var PAPERS = [
     year: 2016,
     arxiv: '1509.04279',
     topic: 'Variational algorithms',
-    note: 'The theoretical footing under VQE — why the variational principle gives ' +
+    note: 'The theoretical footing under VQE, and why the variational principle gives ' +
           'you a genuine upper bound, and how measurement cost scales. Read this ' +
           'before you trust any VQE result, including your own.',
     tags: ['VQE', 'Theory', 'Measurement cost']
@@ -109,7 +109,7 @@ var PAPERS = [
     topic: 'Variational algorithms',
     note: 'Introduced the hardware-efficient ansatz: build the circuit from gates the ' +
           'device actually has rather than from chemistry. Enormously influential, and ' +
-          'the direct cause of the barren-plateau problem below — a good lesson in how ' +
+          'the direct cause of the barren-plateau problem below, a good lesson in how ' +
           'a fix at one layer creates a failure at another.',
     tags: ['Ansatz', 'Hardware-efficient', 'Chemistry']
   },
@@ -135,7 +135,7 @@ var PAPERS = [
     arxiv: '1411.4028',
     topic: 'Optimisation',
     note: 'The QAOA paper. A fixed alternating structure of cost and mixer layers, ' +
-          'with the depth p as the knob. Short and readable — and note how carefully ' +
+          'with the depth p as the knob. Short and readable, and note how carefully ' +
           'it avoids claiming an advantage, which later work has often not.',
     tags: ['QAOA', 'Optimisation', 'Foundational']
   },
@@ -147,7 +147,7 @@ var PAPERS = [
     arxiv: '1302.5843',
     topic: 'Optimisation',
     note: 'The single most practically useful paper on this page. A catalogue of NP ' +
-          'problems written explicitly as Ising Hamiltonians — partitioning, covering, ' +
+          'problems written explicitly as Ising Hamiltonians: partitioning, covering, ' +
           'colouring, Hamiltonian cycles, and more. If you need to map a problem to a ' +
           'QUBO, the mapping is probably already in here.',
     tags: ['QUBO', 'Ising', 'Problem mapping', 'Practical']
@@ -185,7 +185,7 @@ var PAPERS = [
     year: 2020,
     arxiv: '2001.03685',
     topic: 'Chemistry & materials',
-    note: 'Extends the chemistry picture to materials — lattice models, correlated ' +
+    note: 'Extends the chemistry picture to materials: lattice models, correlated ' +
           'electrons, and embedding methods that keep the quantum part small enough ' +
           'to run. The closest thing to a roadmap for materials discovery.',
     tags: ['Materials', 'Embedding', 'Correlated electrons']

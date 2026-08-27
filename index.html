@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Home</title>
-<meta name="description" content="Quantum algorithms for industrial problems — chip design, materials discovery, and molecular simulation. Plus an interactive course and a quantum playground.">
+<meta name="description" content="Quantum algorithms explained through simulations you can push around: an eight-lesson course, a circuit playground, algorithm explainers and the potential applications, with honest notes on what is real today.">
 <link rel="canonical" href="https://amplitwist.com/">
 
 <!-- Social preview. These must live in the HTML source: crawlers do not
@@ -12,14 +12,14 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Amplitwist">
 <meta property="og:title" content="Amplitwist">
-<meta property="og:description" content="Learn quantum computing through simulations you can actually push around — a free seven-lesson course, a circuit playground, algorithm explainers and a curated reading list.">
+<meta property="og:description" content="Learn quantum computing through simulations you can actually push around. A free eight-lesson course, a circuit playground, algorithm explainers and a curated reading list.">
 <meta property="og:url" content="https://amplitwist.com/">
 <meta property="og:image" content="https://amplitwist.com/assets/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Amplitwist">
-<meta name="twitter:description" content="Learn quantum computing through simulations you can actually push around — a free seven-lesson course, a circuit playground, algorithm explainers and a curated reading list.">
+<meta name="twitter:description" content="Learn quantum computing through simulations you can actually push around. A free eight-lesson course, a circuit playground, algorithm explainers and a curated reading list.">
 <meta name="twitter:image" content="https://amplitwist.com/assets/img/og.png">
 <meta name="theme-color" content="#07080f">
 
@@ -39,11 +39,14 @@
            class="hero-grid">
         <div>
           <span class="eyebrow">Quantum algorithms · Learning in public</span>
-          <h1>Quantum algorithms,<br>explained properly.</h1>
+          <h1>Amplify. Twist. Repeat.</h1>
           <p class="lede">
-            A place to learn quantum algorithms properly — interactive simulations you can push
-            around, plain-language explanations, and honest notes on where quantum computing might
-            eventually matter versus where the claims currently outrun the evidence.
+            That is all a quantum gate does. A complex amplitude has a size and an angle, and every
+            gate stretches one and rotates the other, which is where this site gets its name. Chain
+            enough of them and the wrong answers cancel while the right one survives. Here is where
+            I work through how, with interactive simulations you can push around, plain-language
+            explanations, and honest notes on where quantum computing might eventually matter
+            versus where the claims currently outrun the evidence.
           </p>
           <div class="btn-row">
             <a class="btn btn-primary" href="algorithms.html">Explore the algorithms →</a>
@@ -68,7 +71,7 @@
       <h2>Three problem families worth watching</h2>
       <p class="section-sub">
         Quantum advantage is not general-purpose. It shows up in narrow places with the right
-        structure — rugged optimisation landscapes, and systems that are themselves quantum.
+        structure: rugged optimisation landscapes, and systems that are themselves quantum.
         These three are where I think the case is strongest, and they are what I am reading
         toward. To be clear: this is where my interest points, not a description of work I am
         currently doing.
@@ -81,7 +84,7 @@
           <p>
             Scheduling, routing and resource allocation are NP-hard and turn up everywhere in
             industry. Ising and QUBO encodings turn them into something a quantum device can
-            attack — though the classical solvers they would have to beat are very good.
+            attack, though the classical solvers they would have to beat are very good.
           </p>
           <div class="tags"><span class="tag tag-accent">QUBO</span><span class="tag">Ising</span><span class="tag">Annealing</span></div>
         </a>
@@ -101,11 +104,145 @@
           <h3>Molecular simulation</h3>
           <p>
             Binding affinity and conformational search for drug candidates. Today this means small
-            active-site models and hybrid quantum–classical pipelines, not whole proteins.
+            active-site models and hybrid quantum-classical pipelines, not whole proteins.
           </p>
           <div class="tags"><span class="tag tag-cyan">VQE</span><span class="tag">Hybrid</span><span class="tag">Sampling</span></div>
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ POTENTIAL APPLICATIONS ============ -->
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">Potential applications</span>
+      <h2>What a quantum computer might eventually be used for</h2>
+      <p class="section-sub">
+        A quantum computer is not a faster computer. It is a different one, useful only where a
+        problem has structure that interference can exploit. Below is the honest list of candidate
+        applications, each with a horizon attached: <span class="tag tag-status tag-near">near term</span>
+        means devices that exist today already do this,
+        <span class="tag tag-status tag-early">early advantage</span> means the case is credible but
+        unproven on real instances, and <span class="tag tag-status">fault tolerant</span> means it waits on
+        error-corrected machines that nobody has built yet.
+      </p>
+
+      <div class="grid grid-3">
+
+        <div class="card">
+          <div class="card-icon">⌬</div>
+          <h3>Chemistry and catalysis</h3>
+          <p>
+            Nitrogen fixation, the reaction behind most of the world's fertiliser, still runs on a
+            century-old process that burns roughly one percent of global energy. Nature does it at
+            room temperature with an enzyme nobody can simulate accurately. Simulating that active
+            site is the classic case for a quantum computer, because the problem is itself quantum.
+          </p>
+          <div class="tags"><span class="tag tag-cyan">VQE</span><span class="tag">Nitrogenase</span><span class="tag tag-status tag-early">Early advantage</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">⌁</div>
+          <h3>Batteries and energy materials</h3>
+          <p>
+            Cathode chemistry, solid electrolytes and candidate superconductors all hinge on
+            strongly correlated electrons, which is exactly where classical approximations break
+            down. A reliable ground-state energy for a few dozen orbitals would change how these
+            materials get screened.
+          </p>
+          <div class="tags"><span class="tag tag-cyan">Electronic structure</span><span class="tag">Screening</span><span class="tag tag-status tag-early">Early advantage</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">✚</div>
+          <h3>Drug discovery</h3>
+          <p>
+            Not designing whole molecules, despite what the press releases say. The realistic target
+            is the small quantum-mechanical core of a binding site, treated accurately and embedded
+            in an otherwise classical pipeline. Read the
+            <a href="algorithms.html#drug">honest status of this one</a>.
+          </p>
+          <div class="tags"><span class="tag">QM/MM</span><span class="tag">Binding affinity</span><span class="tag tag-status">Fault tolerant</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">⇄</div>
+          <h3>Logistics and scheduling</h3>
+          <p>
+            Routing fleets, sequencing factories, allocating scarce resources. These map cleanly
+            onto <a href="algorithms.html#annealing">Ising and QUBO landscapes</a>, which is what
+            makes them attractive. It is also the area where classical solvers are strongest, so
+            this is the application most likely to be oversold.
+          </p>
+          <div class="tags"><span class="tag tag-accent">QAOA</span><span class="tag">Annealing</span><span class="tag tag-status">Fault tolerant</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">∫</div>
+          <h3>Finance and risk</h3>
+          <p>
+            Derivative pricing and value-at-risk are Monte Carlo problems, and amplitude estimation
+            offers a provable quadratic speedup over sampling. Real, but quadratic: the crossover
+            against a well-optimised classical simulation sits far past current hardware.
+          </p>
+          <div class="tags"><span class="tag">Amplitude estimation</span><span class="tag">Monte Carlo</span><span class="tag tag-status">Fault tolerant</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">⊘</div>
+          <h3>Breaking today's encryption</h3>
+          <p>
+            Shor's algorithm factors integers in polynomial time, which retires RSA and elliptic
+            curve cryptography on the day a large enough error-corrected machine exists. The
+            consequence is already here: encrypted traffic captured now can be stored and decrypted
+            later, which is why post-quantum standards are being rolled out today.
+          </p>
+          <div class="tags"><span class="tag tag-accent">Shor</span><span class="tag">Post-quantum</span><span class="tag tag-status">Fault tolerant</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">◑</div>
+          <h3>Machine learning</h3>
+          <p>
+            Quantum <a href="algorithms.html#qml">kernel methods</a> and variational classifiers
+            embed data into quantum states that are awkward to reproduce classically. Interesting
+            mathematically, and the weakest of these cases in practice: most demonstrated advantages
+            are on datasets constructed to make the quantum method win.
+          </p>
+          <div class="tags"><span class="tag">Kernels</span><span class="tag">Feature maps</span><span class="tag tag-status">Fault tolerant</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">◎</div>
+          <h3>Sensing and metrology</h3>
+          <p>
+            The quiet success story. Entangled and squeezed states already beat the classical noise
+            limit in atomic clocks, magnetometers and gravimeters, and LIGO uses squeezed light to
+            hear fainter black hole mergers. This is quantum technology that works now, though it
+            is sensing rather than computing.
+          </p>
+          <div class="tags"><span class="tag tag-cyan">Squeezing</span><span class="tag">Atomic clocks</span><span class="tag tag-status tag-near">Near term</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">⋈</div>
+          <h3>Networking and key distribution</h3>
+          <p>
+            Measurement destroys the state it reads, so an eavesdropper cannot copy a quantum
+            channel without leaving evidence. That turns a limitation of the physics into a
+            security guarantee, and it is deployed on real fibre links today, even if the
+            practical case against good classical cryptography is still debated.
+          </p>
+          <div class="tags"><span class="tag">QKD</span><span class="tag">Repeaters</span><span class="tag tag-status tag-near">Near term</span></div>
+        </div>
+
+      </div>
+
+      <p class="section-sub" style="margin-top:26px;margin-bottom:0">
+        Read that list with the horizons in mind. Two of these nine are shipping products, and the
+        rest are bets on hardware that does not exist yet. Anyone selling you the middle seven as
+        available today is selling something.
+      </p>
     </div>
   </section>
 
@@ -117,9 +254,9 @@
           <span class="eyebrow">Free · No signup</span>
           <h3 style="font-size:1.4rem">Quantum computing, visually</h3>
           <p style="margin-bottom:16px">
-            Seven short lessons covering qubits, superposition, phase, interference, entanglement,
-            measurement, and what a quantum algorithm actually is. Every concept has a live
-            simulation you can drag, not a static diagram.
+            Eight short lessons, starting with the only linear algebra you need and running
+            through qubits, superposition, phase, interference, entanglement, measurement and a
+            real algorithm. Every concept has a live simulation you can drag, not a static diagram.
           </p>
           <span class="btn btn-sm">Open the course →</span>
         </a>
@@ -139,13 +276,33 @@
           <span class="eyebrow">Reading list</span>
           <h3 style="font-size:1.4rem">Books worth your time</h3>
           <p style="margin-bottom:16px">
-            A short, opinionated shelf — sorted by where you actually are, not by title. Each
+            A short, opinionated shelf, sorted by where you actually are, not by title. Each
             entry says who it is for, so you don't end up in a graduate text on day one and
             conclude the field isn't for you.
           </p>
           <span class="btn btn-sm">See the shelf →</span>
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ HARDWARE STRIP ============ -->
+  <section>
+    <div class="wrap">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:22px">
+        <div>
+          <span class="eyebrow">Hardware</span>
+          <h2 class="mb-0">Nobody has won yet</h2>
+        </div>
+        <a class="btn btn-sm" href="hardware.html">Compare the platforms →</a>
+      </div>
+      <p class="section-sub">
+        Classical computing settled on the silicon transistor and stopped arguing. Quantum
+        computing has six serious candidates for what a qubit should physically be, each with a
+        different answer to what the hard problem is, and each with real companies and real
+        machines behind it.
+      </p>
+      <div class="grid grid-3" id="platformStrip"></div>
     </div>
   </section>
 
@@ -183,10 +340,10 @@
         <h3 style="color:var(--amber)">Where the field actually is</h3>
         <p style="margin-bottom:0">
           Today's quantum hardware is noisy and small. For nearly every industrial problem, a good
-          classical algorithm still wins — and saying otherwise does the field no favours. What is
+          classical algorithm still wins, and saying otherwise does the field no favours. What is
           worth doing now is finding which problem structures might eventually invert that, building
           the mappings, and measuring honestly against the best classical baseline available.
-          Anything on this site that sounds more confident than that is a mistake — tell me.
+          Anything on this site that sounds more confident than that is a mistake. Tell me.
         </p>
       </div>
     </div>
@@ -199,6 +356,7 @@
 <script src="assets/js/qsim.js"></script>
 <script src="assets/js/viz.js"></script>
 <script src="assets/js/papers.js"></script>
+<script src="assets/js/hardware.js"></script>
 <script src="assets/js/site.js"></script>
 <script>
 /* Hero: a real qubit walked through a short tour of notable states.
@@ -208,7 +366,7 @@
   if (!canvas) return;
 
   /* No trail here. The hero jumps between distant states, and the eased
-     interpolation cuts straight through the sphere's interior — so a trail
+     interpolation cuts straight through the sphere's interior, so a trail
      draws chords across the middle rather than an arc on the surface.
      Lesson 3 keeps its trail because dragging the phase slider moves the
      vector continuously along the equator, where the trail is accurate. */
@@ -238,6 +396,24 @@
 
   // slow idle rotation, so it reads as 3D before anyone touches it
   setInterval(function () { if (!sphere._drag) sphere.az += 0.0035; }, 30);
+})();
+
+/* The six qubit platforms, summarised in one line each. Same data array
+   the hardware page renders in full, so the two can never disagree. */
+(function () {
+  var host = document.getElementById('platformStrip');
+  if (!host || typeof PLATFORMS === 'undefined') return;
+  host.innerHTML = PLATFORMS.map(function (p) {
+    return '' +
+      '<a class="card card-link" href="hardware.html#' + p.id + '" style="padding:22px">' +
+        '<div style="display:flex;gap:13px;align-items:center;margin-bottom:10px">' +
+          '<div class="card-icon" style="margin:0;width:32px;height:32px;font-size:0.95rem;flex-shrink:0">' + p.icon + '</div>' +
+          '<h3 style="margin:0;font-size:1.02rem">' + p.name + '</h3>' +
+        '</div>' +
+        '<p style="font-size:0.88rem;margin-bottom:12px">' + p.blurb + '</p>' +
+        '<div class="mono dim" style="font-size:0.74rem">' + p.scale + '</div>' +
+      '</a>';
+  }).join('');
 })();
 
 /* Two papers from the reading list on the home page. */

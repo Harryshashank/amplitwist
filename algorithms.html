@@ -12,14 +12,14 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Amplitwist">
 <meta property="og:title" content="Algorithms · Amplitwist">
-<meta property="og:description" content="Quantum algorithms with industrial applications: materials discovery, molecular simulation, optimisation, search and sampling — with an honest read on where each really stands.">
+<meta property="og:description" content="Quantum algorithms with industrial applications: materials discovery, molecular simulation, optimisation, search and sampling, with an honest read on where each really stands.">
 <meta property="og:url" content="https://amplitwist.com/algorithms.html">
 <meta property="og:image" content="https://amplitwist.com/assets/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Algorithms · Amplitwist">
-<meta name="twitter:description" content="Quantum algorithms with industrial applications: materials discovery, molecular simulation, optimisation, search and sampling — with an honest read on where each really stands.">
+<meta name="twitter:description" content="Quantum algorithms with industrial applications: materials discovery, molecular simulation, optimisation, search and sampling, with an honest read on where each really stands.">
 <meta name="twitter:image" content="https://amplitwist.com/assets/img/og.png">
 <meta name="theme-color" content="#07080f">
 
@@ -37,7 +37,7 @@
       <h1>Algorithms, and what they are<br>actually good for.</h1>
       <p class="lede">
         Explainers, not a portfolio. Each entry states the problem, the quantum approach, and
-        the honest status of that approach <em>in the field</em> — not work I am doing. Badges
+        the honest status of that approach <em>in the field</em>, not work I am doing. Badges
         reflect maturity in the literature: <span class="status status-live">textbook</span>
         means it is settled and provable, <span class="status status-research">research</span>
         means it works in simulation and is actively studied,
@@ -67,9 +67,8 @@
           number vanish entirely.
         </p>
         <p class="mb-0">
-          If you have a problem you think has the right structure —
-          combinatorial with a rugged landscape, or natively quantum —
-          <a data-site-email href="#">get in touch</a>.
+          If you have a problem you think has the right structure, combinatorial with a
+          rugged landscape or natively quantum, <a data-site-email href="#">get in touch</a>.
         </p>
       </div>
     </div>
@@ -93,7 +92,7 @@ var ALGORITHMS = [
       'Predicting whether a material is a superconductor, a good battery cathode, or a useful ' +
       'catalyst comes down to its electronic structure. Exact solution of the many-electron ' +
       'Schrödinger equation costs exponential time classically, so every practical method ' +
-      'approximates — and the approximations fail exactly where strong correlation matters most.',
+      'approximates, and the approximations fail exactly where strong correlation matters most.',
     approach:
       'VQE prepares a parameterised trial state on quantum hardware, measures the expectation ' +
       'value of the Hamiltonian, and hands the number to a classical optimiser that adjusts the ' +
@@ -115,10 +114,10 @@ var ALGORITHMS = [
     statusClass: '',
     problem:
       'Early-stage drug discovery screens enormous candidate libraries for binding affinity. ' +
-      'The expensive, error-prone part is the quantum-mechanical behaviour at the binding site — ' +
+      'The expensive, error-prone part is the quantum-mechanical behaviour at the binding site: ' +
       'charge transfer, polarisation, and bond-making that force fields approximate crudely.',
     approach:
-      'Keep the pipeline mostly classical — docking, conformational search, molecular dynamics — ' +
+      'Keep the pipeline mostly classical (docking, conformational search, molecular dynamics) ' +
       'and reserve a quantum subroutine for a small active-site region treated at the electronic ' +
       'structure level, embedded in a classical environment. This is a QM/MM idea with the QM ' +
       'part run variationally.',
@@ -142,7 +141,7 @@ var ALGORITHMS = [
     approach:
       'Prepare a uniform superposition over all candidates, then repeatedly apply an oracle that ' +
       'flips the phase of solutions followed by an inversion about the mean. Each iteration ' +
-      'rotates amplitude toward the solutions, so about √N iterations suffice — a provable ' +
+      'rotates amplitude toward the solutions, so about √N iterations suffice: a provable ' +
       'quadratic speedup, and one of the few that is actually provable.',
     reality:
       'Quadratic, not exponential. Once you account for error correction overhead, the crossover ' +
@@ -166,7 +165,7 @@ var ALGORITHMS = [
       'the problem Hamiltonian. If the evolution is slow relative to the minimum spectral gap, ' +
       'the system tracks the ground state and you read off a solution.',
     reality:
-      'The catch is in that "if" — the gap can close exponentially, and simulated annealing or ' +
+      'The catch is in that "if": the gap can close exponentially, and simulated annealing or ' +
       'specialised solvers frequently match or beat annealers on published benchmarks. Worth ' +
       'studying, worth being sceptical about.',
     tags: ['Ising', 'QUBO', 'Annealing', 'Scheduling']

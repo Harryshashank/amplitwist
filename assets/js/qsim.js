@@ -1,12 +1,12 @@
 /* ============================================================
-   qsim.js — a small, honest state-vector quantum simulator.
+   qsim.js: a small, honest state-vector quantum simulator.
 
    No dependencies, no build step. Amplitudes are held as two
    parallel Float64Arrays (real, imaginary) of length 2^n.
 
    This is the real thing, not an animation: every visual on the
    site reads out of these amplitudes. If the math here is wrong,
-   the pictures are wrong — so it is kept deliberately simple.
+   the pictures are wrong, so it is kept deliberately simple.
 
    Convention: qubit 0 is the LEAST significant bit, so basis
    state |q2 q1 q0> maps to index (q2<<2 | q1<<1 | q0).
@@ -143,7 +143,7 @@
   /* Bloch vector for qubit q.
        x = 2 Re(rho01),  y = -2 Im(rho01),  z = rho00 - rho11
      Its length is 1 for an unentangled qubit and shrinks toward 0
-     as the qubit becomes entangled with the rest of the register —
+     as the qubit becomes entangled with the rest of the register,
      which is exactly the visual the playground leans on. */
   State.prototype.bloch = function (q) {
     var r = this.rdm1(q);

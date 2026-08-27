@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hardware</title>
+<meta name="description" content="The six ways people are trying to build a quantum computer: superconducting circuits, trapped ions, neutral atoms, photonics, silicon spins and topological qubits. Approaches, trade-offs, the companies, and who is actually ahead.">
+<link rel="canonical" href="https://amplitwist.com/hardware.html">
+
+<!-- Social preview. These must live in the HTML source: crawlers do not
+     run JavaScript, so site.js cannot supply them. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Amplitwist">
+<meta property="og:title" content="Hardware · Amplitwist">
+<meta property="og:description" content="Superconducting, trapped ions, neutral atoms, photonics, silicon spins and topological qubits: how each one works, what it is good and bad at, who is building it, and who is actually ahead.">
+<meta property="og:url" content="https://amplitwist.com/hardware.html">
+<meta property="og:image" content="https://amplitwist.com/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hardware · Amplitwist">
+<meta name="twitter:description" content="Superconducting, trapped ions, neutral atoms, photonics, silicon spins and topological qubits: how each one works, what it is good and bad at, who is building it, and who is actually ahead.">
+<meta name="twitter:image" content="https://amplitwist.com/assets/img/og.png">
+<meta name="theme-color" content="#07080f">
+
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/quantum.css">
+</head>
+<body>
+
+<div data-nav></div>
+
+<main>
+  <section class="hero" style="padding:74px 0 44px">
+    <div class="wrap">
+      <span class="eyebrow">Hardware</span>
+      <h1>Six ways to build a qubit,<br>and nobody has won yet.</h1>
+      <p class="lede">
+        Classical computing settled on silicon transistors decades ago and never looked back.
+        Quantum computing has not settled on anything. Six physical substrates are being pursued
+        seriously, by companies with real money and real machines, and they disagree about
+        everything: what a qubit is made of, how cold it has to be, and what the hard problem
+        actually is. This page is the map, with the trade-offs stated plainly.
+      </p>
+      <p class="mono dim" style="font-size:0.8rem;margin-top:-6px" id="reviewNote"></p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ============ COMPARISON TABLE ============ -->
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">At a glance</span>
+      <h2>The whole field on one screen</h2>
+      <p class="section-sub">
+        Numbers here are order-of-magnitude, not benchmark results, and they describe the best
+        published devices rather than what you can rent. Scroll sideways on a narrow screen.
+      </p>
+      <div class="table-scroll">
+        <table class="cmp" id="cmpTable"></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PLATFORM CARDS ============ -->
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">Platform by platform</span>
+      <h2>How each one actually works</h2>
+      <div class="grid" style="gap:22px" id="platformList"></div>
+    </div>
+  </section>
+
+  <!-- ============ WHO IS WINNING ============ -->
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">The question everyone asks</span>
+      <h2>So who is winning?</h2>
+      <p class="section-sub">
+        Nobody, and the question is usually asked with the wrong metric attached. Qubit count is
+        the number that reaches the press and the least informative one available. Two thousand
+        noisy qubits compute less than fifty good ones, because what you can run is set by how
+        many operations you get before the errors swamp the signal.
+      </p>
+
+      <div class="grid grid-2" style="margin-bottom:22px">
+        <div class="card">
+          <h3>Ask these instead</h3>
+          <ol style="margin:0;padding-left:20px;color:var(--text-muted);font-size:0.93rem">
+            <li>What is the <strong>two-qubit gate error</strong>, measured across the whole
+                device rather than on the best pair?</li>
+            <li>How many physical qubits does one <strong>logical qubit</strong> cost at that
+                error rate?</li>
+            <li>How long is a single <strong>round of error correction</strong>? Clock speed
+                compounds over billions of cycles.</li>
+            <li>Did the logical qubit actually go <strong>below threshold</strong>, meaning more
+                physical qubits made it better rather than worse?</li>
+            <li>What is the <strong>strongest classical baseline</strong> for the task that was
+                demonstrated?</li>
+          </ol>
+        </div>
+
+        <div class="card">
+          <h3>The scoreboard, honestly</h3>
+          <p>
+            <strong>Superconducting</strong> leads on error correction demonstrated end to end,
+            and on raw clock speed. <strong>Trapped ions</strong> lead on fidelity per gate by a
+            clear margin. <strong>Neutral atoms</strong> lead on how fast they are improving, and
+            have moved the field's expectations more than anyone in the last three years.
+            <strong>Photonics</strong> leads on manufacturability and has the least built.
+            <strong>Silicon spins</strong> lead on theoretical density with the fewest working
+            qubits. <strong>Topological</strong> leads on nothing yet, and would leapfrog the
+            entire field if the physics holds up.
+          </p>
+          <p style="margin-bottom:0">
+            If you want one sentence: superconducting and trapped ions are ahead today, neutral
+            atoms are closing fastest, and the two manufacturing bets are playing a longer game.
+          </p>
+        </div>
+      </div>
+
+      <div class="card" style="border-color:rgba(242,181,68,0.28);background:rgba(242,181,68,0.05)">
+        <h3 style="color:var(--amber)">The likelier outcome is not one winner</h3>
+        <p>
+          Error-corrected machines are heading toward being modular: many small processors linked
+          together rather than one enormous chip. The links are photonic whatever the modules are
+          made of, which means the photonics companies may end up supplying the interconnect for
+          everyone else even if they never win the processor race outright. It is entirely
+          plausible that two platforms coexist the way CPUs and GPUs do, one fast and one accurate.
+        </p>
+        <p style="margin-bottom:0">
+          On timing: every serious roadmap in the industry points at the end of this decade for a
+          first genuinely useful fault-tolerant machine. Those roadmaps have slipped before, and
+          the ones that have not slipped yet are mostly the ones that are newest. Treat any
+          specific year, including the ones the companies publish themselves, as a plan rather
+          than a forecast.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTNOTES ============ -->
+  <section class="section-tight">
+    <div class="wrap">
+      <div class="grid grid-2">
+        <div class="card">
+          <span class="eyebrow">Not on this list</span>
+          <h3>Quantum annealers</h3>
+          <p style="margin-bottom:0">
+            D-Wave builds superconducting machines with thousands of qubits, which sounds like it
+            should top every table here. It is a different category: an annealer minimises an
+            Ising energy landscape and cannot run arbitrary circuits, so it is not comparable to a
+            gate-based processor and its qubit count is not the same quantity. The approach is
+            covered in the <a href="algorithms.html#annealing">algorithms section</a> instead.
+          </p>
+        </div>
+        <div class="card">
+          <span class="eyebrow">Reading the news</span>
+          <h3>Where the claims come from</h3>
+          <p style="margin-bottom:0">
+            Almost every hardware headline traces back to a paper, and the paper is usually
+            milder than the headline. When a record is announced, find the preprint, check what
+            was held fixed, and check whether the figure quoted is a median or a best case. The
+            <a href="research.html">papers page</a> lists the results that set the baselines these
+            announcements are measured against.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/js/hardware.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 /* ============================================================
-   playground.js — 3-qubit circuit sandbox with puzzles.
+   playground.js: 3-qubit circuit sandbox with puzzles.
 
    The circuit is a plain list of ops. The state is rebuilt from
    scratch on every change, which makes undo trivial and keeps
@@ -53,7 +53,7 @@
       id: 'minus',
       name: 'Build the |−⟩ state',
       diff: 'easy',
-      goal: 'Put q0 on the negative x-axis of the Bloch sphere — the |−⟩ state.',
+      goal: 'Put q0 on the negative x-axis of the Bloch sphere, the |−⟩ state.',
       hint: 'Two ways in: flip then split, or split then phase-flip.',
       check: function (s) {
         var b = s.bloch(0);
@@ -86,7 +86,7 @@
       id: 'interfere',
       name: 'Reach |1⟩ without using X',
       diff: 'medium',
-      goal: 'Get q0 to a definite |1⟩ using only H, Z, S or T gates — no X or Y allowed.',
+      goal: 'Get q0 to a definite |1⟩ using only H, Z, S or T gates, with no X or Y allowed.',
       hint: 'H, then a phase flip, then H again. This is Lesson 4.',
       check: function (s, o) {
         var clean = o.every(function (x) { return x.gate !== 'X' && x.gate !== 'Y'; });
@@ -224,7 +224,7 @@
     var host = el('pgShots');
     if (!shotTotal) {
       host.innerHTML = '<div class="dim mono" style="font-size:0.76rem">' +
-                       'no measurements yet — hit “measure ×500”</div>';
+                       'no measurements yet, hit “measure ×500”</div>';
       return;
     }
     var keys = Object.keys(shots).sort();

@@ -1,5 +1,5 @@
 /* ============================================================
-   course.js — the seven lesson simulations.
+   course.js: the eight lesson simulations.
    Every readout below comes from a real QSim.State.
    ============================================================ */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   var LESSONS = [
-    'Qubits', 'Superposition', 'Phase', 'Interference',
+    'Linear algebra', 'Qubits', 'Superposition', 'Phase', 'Interference',
     'Entanglement', 'Measurement', "Grover's search"
   ];
 
@@ -85,7 +85,138 @@
   }
 
   /* =========================================================
-     LESSON 1 — the Bloch sphere
+     LESSON 1: the linear algebra: matrix times vector
+     ========================================================= */
+  (function () {
+    var canvas = el('laBloch');
+    if (!canvas) return;
+    var sphere = new Viz.BlochSphere(canvas);
+    var out = el('laOut'), seq = el('laSeq');
+
+    var state  = new QSim.State(1);
+    var before = state.clone();     // the vector as it was before the last multiply
+    var lastName = 'I';
+    var history  = [];
+
+    /* Right-align a column of entries so the brackets line up. */
+    function col(entries) {
+      var w = Math.max.apply(null, entries.map(function (e) { return e.length; }));
+      return entries.map(function (e) {
+        while (e.length < w) e = ' ' + e;
+        return e;
+      });
+    }
+
+    function amp(re, im) { return QSim.ampStr(re, im, 3); }
+
+    /* Pad a label out to a fixed width with it sitting in the middle.
+       Rendered length, not source length: |ψ⟩ counts as three. */
+    function centre(label, width) {
+      var left = Math.max(0, Math.floor((width - label.length) / 2));
+      var out = new Array(left + 1).join(' ') + label;
+      while (out.length < width) out += ' ';
+      return out;
+    }
+
+    function refresh() {
+      var m = QSim.G[lastName];
+      var mat = col([amp(m[0][0], m[0][1]), amp(m[1][0], m[1][1]),
+                     amp(m[2][0], m[2][1]), amp(m[3][0], m[3][1])]);
+      var vin  = col([amp(before.re[0], before.im[0]), amp(before.re[1], before.im[1])]);
+      var vout = col([amp(state.re[0],  state.im[0]),  amp(state.re[1],  state.im[1])]);
+
+      var p0 = state.re[0]*state.re[0] + state.im[0]*state.im[0];
+      var p1 = state.re[1]*state.re[1] + state.im[1]*state.im[1];
+
+      sphere.set(state.bloch(0));
+      seq.textContent = 'applied: ' + (history.length ? history.join(' → ') : '(nothing yet)');
+
+      /* Header labels are centred over the block they name, so the
+         caption stays put as the entry widths change. */
+      var head =
+        centre(lastName,          mat[0].length * 2 + 5) +
+        centre('|ψ⟩',             vin[0].length + 5) +
+        centre(lastName + '|ψ⟩',  vout[0].length + 5);
+
+      out.innerHTML =
+        '<span class="z">' + head + '</span>\n' +
+        '[ ' + mat[0] + ' ' + mat[1] + ' ] [ ' + vin[0]  + ' ]   [ ' + vout[0] + ' ]\n' +
+        '[ ' + mat[2] + ' ' + mat[3] + ' ] [ ' + vin[1]  + ' ] = [ ' + vout[1] + ' ]\n\n' +
+        '<span class="z">probabilities</span>  |a|² = ' + p0.toFixed(3) +
+        '   |b|² = ' + p1.toFixed(3) + '\n' +
+        '<span class="z">length check </span>  |a|² + |b|² = ' + (p0 + p1).toFixed(3);
+    }
+
+    document.querySelectorAll('[data-la]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var g = b.dataset.la;
+        if (g === 'reset') {
+          state = new QSim.State(1);
+          before = state.clone();
+          lastName = 'I';
+          history = [];
+        } else {
+          before = state.clone();
+          state.apply1(QSim.G[g], 0);
+          lastName = g;
+          history.push(g);
+          if (history.length > 8) history.shift();
+        }
+        refresh();
+      });
+    });
+
+    refresh();
+  })();
+
+  /* =========================================================
+     LESSON 1: the tensor product of two qubits
+     ========================================================= */
+  (function () {
+    var sA = el('laA'), sB = el('laB');
+    if (!sA) return;
+    var bars = new Viz.AmpBars(el('laBars'));
+    var vA = el('laAv'), vB = el('laBv'), out = el('laTensor');
+
+    function update() {
+      var tA = sA.value * Math.PI / 180;
+      var tB = sB.value * Math.PI / 180;
+
+      /* Qubit A sits on wire 1 and qubit B on wire 0, so the ket printed
+         by the simulator reads |A B> in that order. */
+      var s = new QSim.State(2);
+      s.apply1(QSim.RY(tA), 1);
+      s.apply1(QSim.RY(tB), 0);
+
+      var a = [Math.cos(tA / 2), Math.sin(tA / 2)];
+      var b = [Math.cos(tB / 2), Math.sin(tB / 2)];
+
+      vA.textContent = sA.value + '°';
+      vB.textContent = sB.value + '°';
+      bars.render(s);
+
+      var rows = '';
+      for (var i = 0; i < 4; i++) {
+        var bitA = (i >> 1) & 1, bitB = i & 1;
+        rows += '  |' + bitA + bitB + '⟩   ' +
+                a[bitA].toFixed(3) + ' × ' + b[bitB].toFixed(3) + ' = ' +
+                (a[bitA] * b[bitB]).toFixed(3) + '\n';
+      }
+
+      out.innerHTML =
+        '<span class="z">qubit A</span>  [ ' + a[0].toFixed(3) + ' ]     ' +
+        '<span class="z">qubit B</span>  [ ' + b[0].toFixed(3) + ' ]\n' +
+        '         [ ' + a[1].toFixed(3) + ' ]              [ ' + b[1].toFixed(3) + ' ]\n\n' +
+        '<span class="z">A ⊗ B, every pairing multiplied out</span>\n' + rows;
+    }
+
+    sA.addEventListener('input', update);
+    sB.addEventListener('input', update);
+    update();
+  })();
+
+  /* =========================================================
+     LESSON 2: the Bloch sphere
      ========================================================= */
   (function () {
     var canvas = el('l1bloch');
@@ -130,7 +261,7 @@
   })();
 
   /* =========================================================
-     LESSON 2 — superposition
+     LESSON 3: superposition
      ========================================================= */
   (function () {
     var canvas = el('l2bloch');
@@ -170,7 +301,7 @@
         var v = b.dataset.l2shots;
         if (v === 'clear') { counts = {}; total = 0; refresh(); return; }
         var n = parseInt(v, 10);
-        // Sampling without collapsing, so the state survives for more shots —
+        // Sampling without collapsing, so the state survives for more shots,
         // equivalent to re-preparing the circuit before each measurement.
         for (var i = 0; i < n; i++) {
           var k = QSim.ket(state.sample(), state.n);
@@ -185,7 +316,7 @@
   })();
 
   /* =========================================================
-     LESSON 3 — phase is invisible to measurement
+     LESSON 4: phase is invisible to measurement
      ========================================================= */
   (function () {
     var canvas = el('l3bloch');
@@ -217,7 +348,7 @@
   })();
 
   /* =========================================================
-     LESSON 4 — interference
+     LESSON 5: interference
      ========================================================= */
   (function () {
     var barsCanvas = el('l4bars');
@@ -256,7 +387,7 @@
   })();
 
   /* =========================================================
-     LESSON 5 — entanglement
+     LESSON 6: entanglement
      ========================================================= */
   (function () {
     var c0 = el('l5b0');
@@ -316,7 +447,7 @@
   })();
 
   /* =========================================================
-     LESSON 6 — measurement collapses the state
+     LESSON 7: measurement collapses the state
      ========================================================= */
   (function () {
     var canvas = el('l6bloch');
@@ -335,7 +466,7 @@
       log.innerHTML = lines.length
         ? lines.slice(-5).join('\n')
         : '<span class="z">no measurements yet</span>';
-      cap.textContent = collapsed ? 'collapsed — superposition destroyed'
+      cap.textContent = collapsed ? 'collapsed: superposition destroyed'
                                   : 'superposition intact';
     }
 
@@ -347,13 +478,13 @@
         } else if (a === 'H') {
           state.apply1(QSim.G.H, 0);
           collapsed = false;
-          lines.push('<span class="z">applied H — now in superposition</span>');
+          lines.push('<span class="z">applied H, now in superposition</span>');
         } else if (a === 'M') {
           var was = collapsed;
           var r = state.measure(0);
           collapsed = true;
           lines.push('<span class="k">measured →</span> <span class="v">' + r + '</span>' +
-            (was ? '  <span class="z">(same as before — nothing left to collapse)</span>'
+            (was ? '  <span class="z">(same as before, nothing left to collapse)</span>'
                  : '  <span class="z">(state has now collapsed)</span>'));
         }
         refresh();
@@ -364,7 +495,7 @@
   })();
 
   /* =========================================================
-     LESSON 7 — Grover's search on 3 qubits (8 items)
+     LESSON 8: Grover's search on 3 qubits (8 items)
      ========================================================= */
   (function () {
     var barsCanvas = el('l7bars');
@@ -410,8 +541,8 @@
       stepEl.textContent = 'step ' + steps + ' · ' + phase;
 
       var note;
-      if (p > 0.9)        note = 'peak — measure now, further iterations will overshoot';
-      else if (steps >= 3) note = 'overshot — the amplitude has rotated past the target';
+      if (p > 0.9)        note = 'peak: measure now, further iterations will overshoot';
+      else if (steps >= 3) note = 'overshot: the amplitude has rotated past the target';
       else if (p > 0.4)   note = 'amplitude is building on the marked item';
       else                note = 'run a full iteration to amplify';
 
@@ -445,7 +576,7 @@
       b.addEventListener('click', function () {
         var a = b.dataset.l7;
         if (a === 'reset')   { init(); return; }
-        if (a === 'oracle')  { oracle();  phase = 'oracle applied — phase flipped'; }
+        if (a === 'oracle')  { oracle();  phase = 'oracle applied, phase flipped'; }
         if (a === 'diffuse') { diffuse(); phase = 'diffusion applied'; steps++; }
         if (a === 'iterate') { oracle(); diffuse(); steps++; phase = 'full iteration'; }
         refresh();

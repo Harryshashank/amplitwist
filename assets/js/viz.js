@@ -1,5 +1,5 @@
 /* ============================================================
-   viz.js — canvas renderers that read straight out of QSim.
+   viz.js: canvas renderers that read straight out of QSim.
 
    BlochSphere  : draggable 3D sphere with the state vector
    AmpBars      : amplitude bars, coloured by phase

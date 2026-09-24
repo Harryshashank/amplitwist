@@ -71,15 +71,19 @@
         source of the interesting behaviour.
       </p>
       <p>
-        One rule constrains them: |a|² + |b|² = 1. Geometrically that says the vector has
-        length 1, so every legal state sits on the surface of a sphere rather than anywhere in
-        space. That sphere is the picture you will be dragging around in Lesson 2.
+        One rule constrains them: |a|² + |b|² = 1, so the vector has length 1. That is not yet
+        the sphere you will drag around in Lesson 2: two complex numbers are four real ones, and
+        one constraint leaves three. The last step is that multiplying both amplitudes by the
+        same phase, a <em>global phase</em>, changes nothing you could ever measure. Treat states
+        that differ only by a global phase as the same state and two parameters remain, which is
+        exactly a point on the surface of a sphere.
       </p>
 
       <div class="readout" style="margin:18px 0">|0⟩  =  [ 1 ]        |1⟩  =  [ 0 ]        |ψ⟩  =  [ a ]
         [ 0 ]                [ 1 ]                [ b ]
 
 <span class="z">the one rule:</span>  |a|² + |b|² = 1   <span class="z">every state has length 1</span>
+<span class="z">global phase:</span>  e^{iγ}(a, b)  ≡  (a, b)   <span class="z">unobservable, so drop it</span>
 
 <span class="z">bra-ket notation, decoded</span>
   |ψ⟩     <span class="z">a column of numbers, the "ket"</span>
@@ -209,6 +213,13 @@
         Two angles fix that point. <code>θ</code> tilts the arrow away from the north pole and
         controls how much |0⟩ versus |1⟩ you have. <code>φ</code> spins it around the vertical
         axis, and that is the <em>phase</em>, which Lesson 4 is entirely about.
+      </p>
+      <p>
+        In terms of the column (a, b) from Lesson 1, the state is
+        a = cos(θ/2), b = e<sup>iφ</sup> sin(θ/2). Note the <strong>half angle</strong>: the
+        south pole is θ = 180°, but that is only 90° of rotation in the amplitudes, which is what
+        takes cos to 0. Opposite points on the sphere are orthogonal states, not negatives of
+        each other.
       </p>
 
       <div class="lab">
@@ -489,14 +500,17 @@
       <span class="lesson-num">Lesson 7</span>
       <h2>Measurement is destructive, and that is the whole problem</h2>
       <p>
-        Measuring collapses the state. Not "reveals what it secretly was". Collapses. Before
-        measurement the qubit genuinely had no definite value; after measurement it is pinned, and
-        the superposition is gone for good.
+        Measuring collapses the state. In the standard interpretation, that means not "reveals
+        what it secretly was" but collapses: before measurement the qubit had no definite value;
+        after measurement it is pinned, and the superposition is gone for good. (For a single
+        qubit this cannot be proven experimentally. The theorems that rule out hidden values,
+        Bell and Kochen–Specker, need entanglement or larger systems.)
       </p>
       <p>
         Set up a superposition below and measure it. Then measure again. And again. The first
-        measurement is random; every one after that returns the same answer, because there is
-        nothing left to be random about.
+        measurement is random; every one after that <em>in the same basis</em> returns the same
+        answer, because there is nothing left to be random about. Measure in a different basis
+        in between, say X after Z, and the next Z measurement is a fresh 50/50.
       </p>
 
       <div class="lab">
@@ -537,8 +551,9 @@
       <span class="lesson-num">Lesson 8</span>
       <h2>Putting it together: Grover's search</h2>
       <p>
-        Eight boxes, one prize. Classically you open boxes until you find it, about four tries on
-        average and eight in the worst case. Grover's algorithm finds it in <strong>two</strong>
+        Eight boxes, one prize. Classically you open boxes until you find it, 4.5 tries on
+        average, (N+1)/2, and seven in the worst case, since if the first seven are empty you
+        know the prize is in the last box without opening it. Grover's algorithm finds it in <strong>two</strong>
         iterations, ⌊(π/4)√8⌋ of them, and the mechanism is exactly what the last seven lessons
         built up.
       </p>

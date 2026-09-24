@@ -47,7 +47,7 @@ var BOOKS = [
     level: 'Reference',
     shelf: 'recommended',
     note: 'Universally called "Mike & Ike". It is the standard reference and has been ' +
-          'for two decades. Not a first book, but every serious practitioner ends up ' +
+          'for more than two decades. Not a first book, but every serious practitioner ends up ' +
           'owning a copy, and most arguments in the field are settled by opening it.',
     tags: ['Reference', 'Rigorous', 'Graduate'],
     url: ''

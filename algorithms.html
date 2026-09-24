@@ -33,7 +33,7 @@
 <main>
   <section class="hero" style="padding:74px 0 44px">
     <div class="wrap">
-      <span class="eyebrow">Algorithm portfolio</span>
+      <span class="eyebrow">Algorithm explainers</span>
       <h1>Algorithms, and what they are<br>actually good for.</h1>
       <p class="lede">
         Explainers, not a portfolio. Each entry states the problem, the quantum approach, and
@@ -67,8 +67,8 @@
           number vanish entirely.
         </p>
         <p class="mb-0">
-          If you have a problem you think has the right structure, combinatorial with a
-          rugged landscape or natively quantum, <a data-site-email href="#">get in touch</a>.
+          If you think something here is wrong, or know a problem with the right structure that
+          belongs on this page, <a data-site-email href="#">get in touch</a>.
         </p>
       </div>
     </div>
@@ -96,8 +96,9 @@ var ALGORITHMS = [
     approach:
       'VQE prepares a parameterised trial state on quantum hardware, measures the expectation ' +
       'value of the Hamiltonian, and hands the number to a classical optimiser that adjusts the ' +
-      'parameters. The variational principle guarantees the result is an upper bound on the true ' +
-      'ground-state energy. Hardware only ever does state preparation and measurement, which is ' +
+      'parameters. The variational principle guarantees the exact expectation value is an upper ' +
+      'bound on the true ground-state energy, though shot noise and hardware errors mean a ' +
+      'measured estimate can still dip below it. Hardware only ever does state preparation and measurement, which is ' +
       'why VQE is viable on noisy devices at all.',
     reality:
       'This is the flagship near-term application and also the most over-promised one. Barren ' +
@@ -162,7 +163,8 @@ var ALGORITHMS = [
     approach:
       'Express the objective and constraints as an Ising or QUBO energy landscape, initialise in ' +
       'the ground state of a simple transverse-field Hamiltonian, and interpolate slowly toward ' +
-      'the problem Hamiltonian. If the evolution is slow relative to the minimum spectral gap, ' +
+      'the problem Hamiltonian. If the run time is long compared with one over the square of the ' +
+      'minimum spectral gap, ' +
       'the system tracks the ground state and you read off a solution.',
     reality:
       'The catch is in that "if": the gap can close exponentially, and simulated annealing or ' +

@@ -67,8 +67,9 @@ var PAPERS = [
     year: 2000,
     arxiv: 'quant-ph/0001106',
     topic: 'Foundations',
-    note: 'The origin of the adiabatic model and everything annealing-shaped that ' +
-          'followed. Start in the ground state of something easy, deform slowly to ' +
+    note: 'The origin of adiabatic quantum computation. Quantum annealing itself came ' +
+          'slightly earlier (Kadowaki and Nishimori, 1998), but this is the paper that ' +
+          'framed it as a model of computation. Start in the ground state of something easy, deform slowly to ' +
           'something hard. The whole question is how slowly, and that is set by the ' +
           'spectral gap, which is where the difficulty hides.',
     tags: ['Adiabatic', 'Annealing', 'Spectral gap']
@@ -109,8 +110,8 @@ var PAPERS = [
     topic: 'Variational algorithms',
     note: 'Introduced the hardware-efficient ansatz: build the circuit from gates the ' +
           'device actually has rather than from chemistry. Enormously influential, and ' +
-          'the direct cause of the barren-plateau problem below, a good lesson in how ' +
-          'a fix at one layer creates a failure at another.',
+          'the best-known victim of the barren-plateau problem below, a good lesson in ' +
+          'how a fix at one layer creates a failure at another.',
     tags: ['Ansatz', 'Hardware-efficient', 'Chemistry']
   },
   {
@@ -237,9 +238,10 @@ var PAPERS = [
     arxiv: '1803.11173',
     topic: 'Limits & reality checks',
     note: 'The result that constrains every variational algorithm. As circuits get ' +
-          'deeper and more expressive, gradients vanish exponentially and training ' +
-          'stops working. This is the central obstacle in near-term quantum computing ' +
-          'and any serious VQA proposal has to answer it.',
+          'expressive enough to look random, gradients vanish exponentially in the number ' +
+          'of qubits and training stops working. Alongside noise, this is one of the ' +
+          'central obstacles in near-term quantum computing, and any serious VQA proposal ' +
+          'has to answer it.',
     tags: ['Barren plateaus', 'Trainability', 'Essential']
   },
   {
